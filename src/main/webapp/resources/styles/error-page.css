@@ -1,0 +1,35 @@
+#explain-text {
+    display: block;
+    padding: 2em;
+    border: 1px solid #13657d;
+    border-radius: 1.5em;
+    width: 700px;
+    margin: 0 auto;
+    text-align: justify;
+    font-size: 16px;
+    font-family: Verdana;
+}
+
+#error-details-container {
+    border: 1px solid #34000c;
+    width: 500px;
+    margin: 1.5em auto 0 auto;
+}
+
+#error-details-title {
+    font-size: 18px;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    color:white;
+    background-color: #34000c;
+    height: 1.6em;
+    padding-top: 0.3em;
+}
+
+#error-info {
+    padding: 1em;
+    font-family: Arial;
+    font-size: 16px;
+    text-align: justify;
+}
