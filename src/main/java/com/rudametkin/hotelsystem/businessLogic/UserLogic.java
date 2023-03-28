@@ -1,5 +1,6 @@
 package com.rudametkin.hotelsystem.businessLogic;
 
+import com.rudametkin.hotelsystem.DAOFactory.DAOException;
 import com.rudametkin.hotelsystem.DAOFactory.DAOFactory;
 import com.rudametkin.hotelsystem.DAOFactory.IUserDAO;
 import com.rudametkin.hotelsystem.MySqlDAOFactory.MySqlDAOFactory;
@@ -13,14 +14,18 @@ public class UserLogic {
     public UserLogic() {
         userEntity = null;
     }
-    public void setUserbylogin(String login) {
+
+    public void authenticateUser(String login, String password) {
+        IUserDAO userDAO = MySqlDAOFactory.getInstance().getUserDAO();
         try {
-            DAOFactory daoFactory = MySqlDAOFactory.getInstance();
-            IUserDAO userDAO = daoFactory.getUserDAO();
-            userEntity = userDAO.findByLogin(login);
-        } catch (Exception e) {
+            userEntity = userDAO.findByLoginPassword(login, password);
+        } catch (DAOException ignore) {
             userEntity = null;
         }
+    }
+
+    public boolean getIsAuthenticated() {
+        return userEntity != null;
     }
 
     public String getName() {

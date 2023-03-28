@@ -11,14 +11,11 @@
 </head>
 <body>
 
-<jsp:useBean id="login" scope="session" class="java.lang.String"/>
-<c:if test="${empty login}">
+<jsp:useBean id="user" class="com.rudametkin.hotelsystem.businessLogic.UserLogic" scope="session" />
+
+<c:if test="${empty user}">
     <c:redirect url="/pages/main.jsp" />
 </c:if>
-
-<jsp:useBean id="user" class="com.rudametkin.hotelsystem.businessLogic.UserLogic" scope="session">
-    <jsp:setProperty name="user" property="userbylogin" value="${login}"/>
-</jsp:useBean>
 
 <header class="header">
     <form action="../Controller?command=redirect-home-page" method="post" id="logo-text-container" class="header-button-container">

@@ -1,23 +1,30 @@
 package com.rudametkin.hotelsystem.controller;
 
 import com.rudametkin.hotelsystem.commands.*;
+import com.rudametkin.hotelsystem.configs.Config;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ControllerHelper {
     private static ControllerHelper instance = null;
-    private final Map<String, ICommand> commands;
+    private Map<String, ICommand> commands;
     private ControllerHelper() {
-        commands = new HashMap<>();
+        try {
+            Config pagePathConfig = new Config("/resources/properties/", "pagepath.properties");
+            commands = new HashMap<>();
 
-        commands.put(null, new RedirectPage("/pages/main.jsp"));
-        commands.put("redirect-login-form", new RedirectPage("/pages/login.jsp"));
-        commands.put("redirect-home-page", commands.get(null));
-        commands.put("redirect-error", new RedirectPage("/pages/error.jsp"));
-        commands.put("redirect-cabinet-page", new Cabinet());
-        commands.put("login", new Login());
-        commands.put("logout", new Logout());
+            commands.put(null, new RedirectPage(pagePathConfig.getProperty("main")));
+            commands.put("redirect-login-form", new RedirectPage(pagePathConfig.getProperty("login")));
+            commands.put("redirect-home-page", commands.get(null));
+            commands.put("redirect-error", new RedirectPage(pagePathConfig.getProperty("error")));
+            commands.put("redirect-cabinet-page", new Cabinet());
+            commands.put("login", new Login());
+            commands.put("logout", new Logout());
+        } catch (Exception e) {
+            commands = null;
+
+        }
     }
 
     public static ControllerHelper getInstance() {

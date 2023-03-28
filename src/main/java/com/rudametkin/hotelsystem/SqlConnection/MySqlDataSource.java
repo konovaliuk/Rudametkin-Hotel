@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.rudametkin.hotelsystem.MySqlDAOFactory.MySqlUserDAO;
+import com.rudametkin.hotelsystem.configs.Config;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 
@@ -21,18 +22,17 @@ public class MySqlDataSource {
 
     private static void initDataSource() throws SQLException {
         PoolProperties poolProps = new PoolProperties();
-        Properties props = new Properties();
+        Config config;
         try {
-            props.load(new FileInputStream(Paths.get("").toAbsolutePath().getParent().toString() +
-                    "/webapps/classichotel/resources/properties/hoteldatabase.properties"));
-        } catch (IOException e) {
+            config = new Config("resources/properties/", "hoteldatabase.properties");
+        } catch (Exception e) {
             throw new SQLException("Can't get access to DB properties");
         }
 
-        poolProps.setUrl(props.getProperty("jdbc.db.url"));
-        poolProps.setUsername(props.getProperty("db.user.name"));
-        poolProps.setPassword(props.getProperty("db.user.password"));
-        poolProps.setDriverClassName(props.getProperty("jdbc.driver.class.name"));
+        poolProps.setUrl(config.getProperty("jdbc.db.url"));
+        poolProps.setUsername(config.getProperty("db.user.name"));
+        poolProps.setPassword(config.getProperty("db.user.password"));
+        poolProps.setDriverClassName(config.getProperty("jdbc.driver.class.name"));
 
         instance = new DataSource();
         instance.setPoolProperties(poolProps);

@@ -15,10 +15,10 @@
         <button type="submit" id="header-logo-text-button">Classic</button>
     </form>
 
-    <jsp:useBean id="login" scope="session" class="java.lang.String"/>
+    <jsp:useBean id="user" class="com.rudametkin.hotelsystem.businessLogic.UserLogic" scope="session" />
 
     <c:choose>
-        <c:when test="${empty login}">
+        <c:when test="${empty user}">
             <form action="../Controller?command=redirect-login-form" method="post" id="login-button-container" class="header-button-container">
                 <button type="submit" class="header-button">Log in</button>
             </form>
