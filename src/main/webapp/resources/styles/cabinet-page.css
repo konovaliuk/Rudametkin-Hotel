@@ -168,3 +168,51 @@
   top: 50%;
   transform: translateY(-50%);
 }
+
+#role-dropdown {
+  height: fit-content;
+  display: flex;
+  width: 100px;
+  background: none;
+  color: white;
+  flex-flow: column;
+  text-align: center;
+  font-size: 16px;
+  font-family: Verdana;
+}
+
+#role-dropdown-child {
+  background-color: #f2f2f2;
+}
+
+#role-dropdown:hover {
+  background-color: #0f0d5b;
+  color: white;
+  cursor: pointer;
+}
+
+#role-dropdown-child {
+  display: none;
+}
+
+#role-dropdown-child > div:hover {
+  background-color: #e0e0e0;
+  color: black;
+}
+
+#role-dropdown-child > div {
+  border-top: 1px solid black;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+#role-dropdown:hover #role-dropdown-child {
+  display: block;
+}
+
+#current-role {
+  display: block;
+  padding: 10px;
+  text-decoration: underline;
+}

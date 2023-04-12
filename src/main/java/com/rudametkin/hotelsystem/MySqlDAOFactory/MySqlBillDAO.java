@@ -41,45 +41,42 @@ public class MySqlBillDAO implements IBillDAO {
 
     @Override
     public void add(Bill bill) throws DAOException {
-        try {
-            DataSource msds = MySqlDataSource.getInstance();
-            Connection con = msds.getConnection();
+        DataSource msds = MySqlDataSource.getInstance();
+        try(Connection con = msds.getConnection();
             PreparedStatement stmt = con.prepareStatement(
-                    "INSERT INTO bills (register_id, client_id, room_charge, room_service, " +
-                            "bar_charge, restaurant_charge, late_departure_charge, other_charge, is_paid) " +
-                            "VALUES (?,?,?,?,?,?,?,?,?);");
+                "INSERT INTO bills (register_id, client_id, room_charge, room_service, " +
+                        "bar_charge, restaurant_charge, late_departure_charge, other_charge, is_paid) " +
+                        "VALUES (?,?,?,?,?,?,?,?,?);");)
+        {
+
             setStatementBillBasicParameters(stmt, bill);
             stmt.execute();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             handleSQLException(e);
         }
     }
     @Override
     public void update(Bill bill) throws DAOException {
-        try {
-            DataSource msds = MySqlDataSource.getInstance();
-            Connection con = msds.getConnection();
+        DataSource msds = MySqlDataSource.getInstance();
+        try(Connection con = msds.getConnection();
             PreparedStatement stmt = con.prepareStatement(
                     "UPDATE bills SET register_id = ?, client_id = ?, room_charge = ?, room_service = ?, " +
                             "bar_charge = ?, restaurant_charge = ?, late_departure_charge = ?, other_charge = ?, is_paid = ?) " +
-                            "WHERE id = ?;");
+                            "WHERE id = ?;"))
+        {
             setStatementBillBasicParameters(stmt, bill);
             stmt.setInt(10, bill.getId());
             stmt.execute();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             handleSQLException(e);
         }
     }
     @Override
     public ArrayList<Bill> findByClientId(int clientId) throws DAOException {
-        try {
-            DataSource msds = MySqlDataSource.getInstance();
-            Connection con = msds.getConnection();
-            CallableStatement stmt = con.prepareCall("SELECT * FROM bills WHERE client_id = ? ;");
+        DataSource msds = MySqlDataSource.getInstance();
+        try(Connection con = msds.getConnection();
+            CallableStatement stmt = con.prepareCall("SELECT * FROM bills WHERE client_id = ? ;"))
+        {
             stmt.setInt(1, clientId);
             ResultSet resultSet = stmt.executeQuery();
             ArrayList<Bill> list = new ArrayList<>();
@@ -94,8 +91,6 @@ public class MySqlBillDAO implements IBillDAO {
                         resultSet.getBoolean(10)));
             }
             resultSet.close();
-            stmt.close();
-            con.close();
             return list;
         } catch (SQLException e) {
             handleSQLException(e);
@@ -104,10 +99,10 @@ public class MySqlBillDAO implements IBillDAO {
     }
     @Override
     public ArrayList<Bill> findByRegisterId(int registerId) throws DAOException {
-        try {
-            DataSource msds = MySqlDataSource.getInstance();
-            Connection con = msds.getConnection();
-            CallableStatement stmt = con.prepareCall("SELECT * FROM bills WHERE register_id = ? ;");
+        DataSource msds = MySqlDataSource.getInstance();
+        try(Connection con = msds.getConnection();
+            CallableStatement stmt = con.prepareCall("SELECT * FROM bills WHERE register_id = ? ;"))
+        {
             stmt.setInt(1, registerId);
             ResultSet resultSet = stmt.executeQuery();
             ArrayList<Bill> list = new ArrayList<>();
@@ -122,8 +117,6 @@ public class MySqlBillDAO implements IBillDAO {
                         resultSet.getBoolean(10)));
             }
             resultSet.close();
-            stmt.close();
-            con.close();
             return list;
         } catch (SQLException e) {
             handleSQLException(e);

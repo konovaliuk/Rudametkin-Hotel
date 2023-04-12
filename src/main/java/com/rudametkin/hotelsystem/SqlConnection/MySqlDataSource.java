@@ -18,16 +18,11 @@ import org.apache.tomcat.jdbc.pool.PoolProperties;
 
 
 public class MySqlDataSource {
-    private static DataSource instance = null;
+    private static DataSource instance = getInstance();
 
-    private static void initDataSource() throws SQLException {
+    private static void initDataSource() {
         PoolProperties poolProps = new PoolProperties();
-        Config config;
-        try {
-            config = new Config("resources/properties/", "hoteldatabase.properties");
-        } catch (Exception e) {
-            throw new SQLException("Can't get access to DB properties");
-        }
+        Config config = new Config("resources/properties/", "hoteldatabase.properties");;
 
         poolProps.setUrl(config.getProperty("jdbc.db.url"));
         poolProps.setUsername(config.getProperty("db.user.name"));
@@ -38,7 +33,7 @@ public class MySqlDataSource {
         instance.setPoolProperties(poolProps);
     }
     private MySqlDataSource() {}
-    public static DataSource getInstance() throws SQLException
+    public static DataSource getInstance()
     {
         if(instance == null)
             initDataSource();

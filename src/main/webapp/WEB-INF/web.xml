@@ -12,11 +12,21 @@
 
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
-        <url-pattern></url-pattern>
+        <url-pattern>/classichotel*</url-pattern>
     </servlet-mapping>
 
     <session-config>
         <session-timeout>1</session-timeout>
     </session-config>
+
+
+    <error-page>
+        <location>/pages/error.jsp</location>
+    </error-page>
+
+
+    <welcome-file-list>
+        <welcome-file>/pages/main.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>
 

@@ -14,9 +14,23 @@ a {
 
 
 .header {
+    display: flex;
     height: 5em;
     width: 100%;
     background: linear-gradient(34deg, rgba(44,98,115,1) 0%, rgba(5,54,133,1) 55%, rgba(29,9,144,1) 81%, rgba(0,43,65,1) 100%);
+}
+
+.header > .left-half {
+    display: flex;
+    flex: 1;
+    flex-flow: row;
+}
+
+.header > .right-half {
+    display: flex;
+    flex: 1;
+    flex-flow: row-reverse;
+    padding-right: 30px;
 }
 
 
@@ -120,9 +134,7 @@ a {
 }
 
 #logo-text-container {
-    left: 8%;
-    top: 50%;
-    transform:translate(0%,-50%);
+    left: 20px;
 }
 
 #header-logo-text-button:hover {
@@ -130,33 +142,19 @@ a {
 }
 
 #login-button-container, #cabinet-button-container {
-    top: 50%;
-    left: 85%;
-    transform:translate(-100%,-50%);
+
 }
 
 #logout-button-container {
-    top: 50%;
-    left: 75%;
-    margin-left: 30px;
-    transform:translate(-100%,-50%);
+
 }
 
 .header-button-container {
-    display: block;
-    position: relative;
+    display: flex;
     width: fit-content;
-    float: left;
-}
-
-@media screen and (max-width: 750px) {
-    #login-button-container {
-        left: 75%;
-    }
-}
-
-@media screen and (max-width: 470px) {
-    #login-button-container {
-        left: 68%;
-    }
+    height: fit-content;
+    margin: 0 20px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }

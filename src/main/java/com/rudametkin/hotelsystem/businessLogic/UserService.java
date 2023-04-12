@@ -1,17 +1,14 @@
 package com.rudametkin.hotelsystem.businessLogic;
 
 import com.rudametkin.hotelsystem.DAOFactory.DAOException;
-import com.rudametkin.hotelsystem.DAOFactory.DAOFactory;
 import com.rudametkin.hotelsystem.DAOFactory.IUserDAO;
 import com.rudametkin.hotelsystem.MySqlDAOFactory.MySqlDAOFactory;
 import com.rudametkin.hotelsystem.entityObjects.User;
 
-import java.util.ArrayList;
-
-public class UserLogic {
+public class UserService {
     private User userEntity;
 
-    public UserLogic() {
+    public UserService() {
         userEntity = null;
     }
 
@@ -29,27 +26,27 @@ public class UserLogic {
     }
 
     public String getName() {
-        return (userEntity != null) ? userEntity.getName() : "Error";
+        return (userEntity != null) ? userEntity.getName() : "Null";
     }
 
     public String getSurname() {
-        return (userEntity != null) ? userEntity.getSurname() : "Error";
+        return (userEntity != null) ? userEntity.getSurname() : "Null";
     }
 
     public String getEmail() {
-        return (userEntity != null) ? userEntity.getEmail() : "Error";
+        return (userEntity != null) ? userEntity.getEmail() : "Null";
     }
 
     public String getPhone() {
-        return (userEntity != null) ? userEntity.getPhone() : "Error";
+        return (userEntity != null) ? userEntity.getPhone() : "Null";
     }
 
     public String getLogin() {
-        return (userEntity != null) ? userEntity.getLogin() : "Error";
+        return (userEntity != null) ? userEntity.getLogin() : "Null";
     }
 
     public String getInfo() {
-        String result = (userEntity != null) ? userEntity.getInfo() : "Error";
+        String result = (userEntity != null) ? userEntity.getInfo() : "Null";
         return result.equals("") ? "No info" : result;
     }
 }

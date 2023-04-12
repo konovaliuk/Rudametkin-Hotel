@@ -11,19 +11,31 @@
 </head>
 <body>
 
-<jsp:useBean id="user" class="com.rudametkin.hotelsystem.businessLogic.UserLogic" scope="session" />
+<jsp:useBean id="user" class="com.rudametkin.hotelsystem.businessLogic.UserService" scope="session" />
 
-<c:if test="${empty user}">
+<c:if test="${user.isAuthenticated == false}">
     <c:redirect url="/pages/main.jsp" />
 </c:if>
 
 <header class="header">
-    <form action="../Controller?command=redirect-home-page" method="post" id="logo-text-container" class="header-button-container">
-        <button type="submit" id="header-logo-text-button">Classic</button>
-    </form>
-    <form action="../Controller?command=logout" method="post" id="logout-button-container" class="header-button-container">
-        <button type="submit" class="header-button">Log out</button>
-    </form>
+    <div class="left-half">
+        <form action="../Controller?command=redirect-home-page" method="post" id="logo-text-container" class="header-button-container">
+            <button type="submit" id="header-logo-text-button">Classic</button>
+        </form>
+    </div>
+    <div class="right-half">
+        <form action="../Controller?command=logout" method="post" id="logout-button-container" class="header-button-container">
+            <button type="submit" class="header-button">Log out</button>
+        </form>
+        <div class="header-button-container" style="height: 38px">
+            <div id="role-dropdown">
+                <div id="current-role">Client</div>
+                <div id="role-dropdown-child">
+                    <div>Admin</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 <h1 style="margin-top: 1em; text-align: center;">CABINET | HOTEL CLASSIC</h1>
 <h3 style="margin-top: 0.3em; text-align: center;">welcome, <jsp:getProperty name="user" property="name" /></h3>

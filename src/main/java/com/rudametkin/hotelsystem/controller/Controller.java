@@ -19,9 +19,8 @@ public class Controller extends HttpServlet {
             command.execute(request, response);
         } catch (Exception e) {
             System.out.println("[ERROR] | " + e.getMessage());
-            ICommand command = ControllerHelper.getInstance().getCommand("redirect-error");
+            ICommand command = ControllerHelper.getInstance().getCommand("handle-error");
             try {
-                request.setAttribute("error", e.getMessage());
                 request.getSession().setAttribute("error", e.getMessage());
                 command.execute(request, response);
             } catch (Exception ignore) {};

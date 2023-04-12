@@ -19,7 +19,7 @@ public class Config {
         projectDirectoryPath = Paths.get("").toAbsolutePath().getParent().toString() + "/webapps/classichotel/";
     }
 
-    public Config(String propertysDirPath, String propertyFile) throws Exception {
+    public Config(String propertysDirPath, String propertyFile) {
         directoryPath = propertysDirPath;
         boundedFile = propertyFile;
         projectDirectoryPath = Paths.get("").toAbsolutePath().getParent().toString() + "/webapps/HotelSystem/target/HotelSystem-1.0-SNAPSHOT/";
@@ -29,7 +29,6 @@ public class Config {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             properties = null;
-            throw new Exception(e.getMessage());
         }
     }
 
