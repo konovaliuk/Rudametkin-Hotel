@@ -1,12 +1,13 @@
 package com.rudametkin.hotelsystem.DAOFactory;
 
 import com.rudametkin.hotelsystem.entityObjects.Room;
+import com.rudametkin.hotelsystem.entityObjects.RoomParameters;
 
 import java.util.ArrayList;
 import java.sql.Timestamp;
+import java.util.List;
 
 public interface IRoomDAO {
     void upadte(Room room) throws DAOException;
-    ArrayList<Room> findFreeRoomsByParams(Room.RoomType type, int capacity, int bedsAmount, float maxPrice) throws DAOException;
-    ArrayList<Room> findFreeRoomsByParams(Room.RoomType type, int capacity, int bedsAmount, float maxPrice, Timestamp arrivalTimestamp, int livingDays) throws DAOException;
+    public List<Room> findFreeRoomsByParams(RoomParameters rp) throws DAOException;
 }

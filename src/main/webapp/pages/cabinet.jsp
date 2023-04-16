@@ -8,23 +8,28 @@
     <title>Cabinet | Classic Hotel</title>
     <link href="${pageContext.request.contextPath}/resources/styles/page-styles.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/styles/cabinet-page.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/styles/search-room-form.css" rel="stylesheet">
 </head>
 <body>
+
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+%>
 
 <jsp:useBean id="user" class="com.rudametkin.hotelsystem.businessLogic.UserService" scope="session" />
 
 <c:if test="${user.isAuthenticated == false}">
-    <c:redirect url="/pages/main.jsp" />
+    <c:redirect url="/pages/login.jsp" />
 </c:if>
 
 <header class="header">
     <div class="left-half">
-        <form action="../Controller?command=redirect-home-page" method="post" id="logo-text-container" class="header-button-container">
+        <form action="${pageContext.request.contextPath}/Controller?command=redirect-home-page" method="post" id="logo-text-container" class="header-button-container">
             <button type="submit" id="header-logo-text-button">Classic</button>
         </form>
     </div>
     <div class="right-half">
-        <form action="../Controller?command=logout" method="post" id="logout-button-container" class="header-button-container">
+        <form action="${pageContext.request.contextPath}/Controller?command=logout" method="post" id="logout-button-container" class="header-button-container">
             <button type="submit" class="header-button">Log out</button>
         </form>
         <div class="header-button-container" style="height: 38px">
@@ -64,29 +69,31 @@
 
 <div id="search-rooms-container">
     <div id="search-rooms-title">APARTMENTS SEARCH</div>
-    <form action="" id="fields-container">
+    <form action="${pageContext.request.contextPath}/Controller?command=start-search" id="fields-container" method="post">
       <span>
         <img src="${pageContext.request.contextPath}/resources/pictures/person-logo.png" alt="PersonPic" class="form-icon search-form-item">
         <button type="button" class="field-counter-button search-form-item" onclick="decreaseCounterValue(this.nextElementSibling);" disabled>-</button>
         <span id="persons-amount" class="counter search-form-item">1</span>
         <button type="button" class="field-counter-button right-indent search-form-item" onclick="increaseCounterValue(this.previousElementSibling);">+</button>
+        <input id="input-persons-amount" type="hidden" name="persons-amount" value="1" />
       </span>
-        <span>
-        <img src="${pageContext.request.contextPath}/resources/pictures/bed-logo.png" alt="BedPic" class="form-icon search-form-item">
-        <button type="button" class="field-counter-button search-form-item" onclick="decreaseCounterValue(this.nextElementSibling);" disabled>-</button>
-        <span id="beds-amount" class="counter search-form-item">1</span>
-        <button type="button" class="field-counter-button right-indent search-form-item" onclick="increaseCounterValue(this.previousElementSibling);">+</button>
+      <span>
+          <img src="${pageContext.request.contextPath}/resources/pictures/bed-logo.png" alt="BedPic" class="form-icon search-form-item">
+          <button type="button" class="field-counter-button search-form-item" onclick="decreaseCounterValue(this.nextElementSibling);" disabled>-</button>
+          <span id="beds-amount" class="counter search-form-item">1</span>
+          <button type="button" class="field-counter-button right-indent search-form-item" onclick="increaseCounterValue(this.previousElementSibling);">+</button>
+          <input type="number" name="beds-amount" value="1" hidden />
       </span>
-        <span>
+      <span>
         <img src="${pageContext.request.contextPath}/resources/pictures/calendar-logo.png" alt="BedPic" class="form-icon search-form-item">
-        <input class="form-data-input search-form-item" id="arrival-date" type="date" onchange="updateMinDepartureDate();">
+        <input name="arrival-date" class="form-data-input search-form-item" id="arrival-date" type="date" onchange="updateMinDepartureDate();">
         <span class="search-form-item" style="margin: 0 3px; font-size: 20px;">-</span>
-        <input class="form-data-input search-form-item right-indent" id="departure-date" type="date" onchange="updateMinDepartureDate();">
+        <input name="departure-date" class="form-data-input search-form-item right-indent" id="departure-date" type="date" onchange="updateMinDepartureDate();">
       </span>
-        <span>
+      <span>
         <img src="${pageContext.request.contextPath}/resources/pictures/coins-logo.png" alt="CoinsPic" class="form-icon search-form-item">
         <select name="room-type" id="room-type-select" class="search-form-item right-indent" onchange="updateFormStringAndInputs();">
-          <option value="Any type" selected>Any</option>
+          <option value="Any" selected>Any</option>
           <option value="Economy">Economy</option>
           <option value="Standard">Standard</option>
           <option value="Deluxe">Deluxe</option>
@@ -94,14 +101,14 @@
           <option value="Presidential">Presidential</option>
         </select>
       </span>
-        <input type="text" id="form-result-info" class="search-form-item right-indent" disabled></input>
+        <input type="text" id="form-result-info" class="search-form-item right-indent" disabled />
         <button type="submit" name="button" class="submit-search search-form-item">
             <div class="submit-search-image"></div>
         </button>
     </form>
 </div>
+<footer></footer>
 </body>
 
-<script src="${pageContext.request.contextPath}/resources/scripts/cabinet.js"></script>
-
+<script src="${pageContext.request.contextPath}/resources/scripts/search-form.js"></script>
 </html>

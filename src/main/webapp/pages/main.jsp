@@ -10,6 +10,10 @@
 </head>
 <body style="height: 1400px;">
 
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+%>
+
 <jsp:useBean id="user" class="com.rudametkin.hotelsystem.businessLogic.UserService" scope="session" />
 
 <header class="header">

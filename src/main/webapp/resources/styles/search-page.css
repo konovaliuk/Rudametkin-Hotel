@@ -1,0 +1,116 @@
+#search-form {
+    margin-top: 20px;
+    width: 100%;
+    height: 100px;
+    background-color: gray;
+}
+
+#found-rooms-container {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.room-item {
+    width: 90%;
+    height: 250px;
+    border: 1px solid black;
+    border-radius: 20px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.item-image-wrapper {
+    width: 40%;
+    height: 100%;
+    float: right;
+    overflow: hidden;
+}
+
+.room-item-image {
+    min-width: 100%;
+    min-height: 100%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.item-content-wrapper {
+    width: 60%;
+    height: 100%;
+    float: left;
+    position: relative;
+}
+
+.item-content-wrapper > .header {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.item-content-wrapper > button {
+    height: 40px;
+    width: 200px;
+    border-radius: 8px;
+    background-color: #0608e4;
+    color: white;
+    font-size: 16px;
+    margin: 0 auto;
+    border: none;
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.item-content-wrapper > button:hover {
+    cursor: pointer;
+    background-color: #0506c7;
+}
+
+.item-content-wrapper > p {
+    width: 100%;
+    text-align: center;
+    font-size: 17px;
+    padding: 20px;
+}
+
+#page-navigation-bar {
+    height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#page-navigation-bar div {
+    display: flex;
+    flex-direction: row;
+}
+
+#page-navigation-bar div > form > button {
+    height: 100%;
+    width: 110px;
+    background-color: #c5c5c5;
+    font-size: 14px;
+    border-radius: 9px;
+    border: none;
+}
+
+#page-navigation-bar div > form > button:hover {
+    cursor: pointer;
+    background-color: #b7b7b7;
+}
+
+#page-navigation-bar div span {
+    display: block;
+    width: 40px;
+    font-size: 18px;
+    text-align: center;
+    padding-top: 4px;
+}

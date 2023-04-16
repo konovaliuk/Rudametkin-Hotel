@@ -19,19 +19,20 @@ document.getElementById('departure-date').valueAsDate = todayDay;
 document.getElementById('departure-date').min = todayStr;
 
 updateFormStringAndInputs();
-
 function increaseCounterValue(counterSPAN) {
-    let newValue = (Number(counterSPAN.innerHTML) + 1).toString();
-    counterSPAN.innerHTML = newValue;
+    let input = counterSPAN.nextElementSibling.nextElementSibling;
+    input.value = (Number(input.value) + 1).toString();
+    counterSPAN.innerHTML = input.value;
     if(counterSPAN.previousElementSibling.disabled)
         counterSPAN.previousElementSibling.disabled = false;
     updateFormStringAndInputs();
 }
 
 function decreaseCounterValue(counterSPAN) {
-    let newValue = (Number(counterSPAN.innerHTML) - 1).toString();
-    counterSPAN.innerHTML = newValue;
-    if(newValue == 1)
+    let input = counterSPAN.nextElementSibling.nextElementSibling;
+    input.value = (Number(input.value) - 1).toString();
+    counterSPAN.innerHTML = input.value;
+    if(input.value === "1")
         counterSPAN.previousElementSibling.disabled = true;
     updateFormStringAndInputs();
 }
@@ -45,8 +46,8 @@ function updateMinDepartureDate() {
 }
 
 function updateFormStringAndInputs() {
-    let personsAmount = document.getElementById("persons-amount").innerHTML;
-    let bedsAmount = document.getElementById("beds-amount").innerHTML;
+    let personsAmount = document.getElementById("persons-amount").innerHTML.trim();
+    let bedsAmount = document.getElementById("beds-amount").innerHTML.trim();
     let roomType = document.getElementById("room-type-select").value;
     let arrivalDateString = formatInputData(document.getElementById("arrival-date").value);
     let departureDateString = formatInputData(document.getElementById("departure-date").value);

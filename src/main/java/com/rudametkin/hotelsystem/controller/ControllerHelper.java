@@ -4,6 +4,7 @@ import com.rudametkin.hotelsystem.commands.*;
 import com.rudametkin.hotelsystem.commands.Error;
 import com.rudametkin.hotelsystem.configs.Config;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +22,10 @@ public class ControllerHelper {
             commands.put("redirect-cabinet-page", new Cabinet());
             commands.put("login", new Login());
             commands.put("logout", new Logout());
+            commands.put("start-search", new StartSearching());
+            commands.put("prev-search-page", new PrevSearchPage());
+            commands.put("next-search-page", new NextSearchPage());
+
         } catch (Exception e) {
             commands = null;
         }
@@ -33,7 +38,7 @@ public class ControllerHelper {
         return instance;
     }
 
-    public ICommand getCommand(String commandName) {
-        return commands.get(commandName);
+    public ICommand getCommand(String command) {
+        return commands.get(command);
     }
 }

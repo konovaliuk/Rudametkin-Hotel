@@ -13,20 +13,20 @@ a {
 }
 
 
-.header {
+header.header {
     display: flex;
     height: 5em;
     width: 100%;
     background: linear-gradient(34deg, rgba(44,98,115,1) 0%, rgba(5,54,133,1) 55%, rgba(29,9,144,1) 81%, rgba(0,43,65,1) 100%);
 }
 
-.header > .left-half {
+header.header > .left-half {
     display: flex;
     flex: 1;
     flex-flow: row;
 }
 
-.header > .right-half {
+header.header > .right-half {
     display: flex;
     flex: 1;
     flex-flow: row-reverse;

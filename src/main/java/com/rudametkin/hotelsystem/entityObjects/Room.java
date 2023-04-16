@@ -2,7 +2,7 @@ package com.rudametkin.hotelsystem.entityObjects;
 
 public class Room {
     public enum RoomType {
-        Economy("Economy"), Standard("Standard"), Deluxe("Deluxe"), Suite("Suite"), Presidential("Presidential");
+        Economy("Economy"), Standard("Standard"), Deluxe("Deluxe"), Suite("Suite"), Presidential("Presidential"), Any("Any");
 
         private String value;
 

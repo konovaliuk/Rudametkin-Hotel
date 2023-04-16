@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/Controller")
+@WebServlet(value = "/Controller")
 public class Controller extends HttpServlet {
 
     public void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            String actionType = request.getParameter("command");
-            ICommand command = ControllerHelper.getInstance().getCommand(actionType);
+            String action = request.getParameter("command");
+            ICommand command = ControllerHelper.getInstance().getCommand(action);
             command.execute(request, response);
         } catch (Exception e) {
             System.out.println("[ERROR] | " + e.getMessage());
