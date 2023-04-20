@@ -11,40 +11,70 @@
     <link href="${pageContext.request.contextPath}/resources/styles/login-page.css" rel="stylesheet">
 </head>
 
-<jsp:useBean id="user" class="com.rudametkin.hotelsystem.businessLogic.UserService" scope="session" />
-
-<c:if test="${user.isAuthenticated == true}">
-    <c:redirect url="/pages/cabinet.jsp" />
-</c:if>
-
 <%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 %>
 
+<jsp:useBean id="user" class="com.rudametkin.hotelsystem.EntityObjects.UserWithRoles" scope="session" />
+
+<c:if test="${not empty user.login}">
+    <c:redirect url="/cabinet" />
+</c:if>
+
 <body class="page-stop-transition">
-<header class="header">
-    <form action="${pageContext.request.contextPath}/Controller?command=redirect-home-page" method="post" id="logo-text-container" class="header-button-container">
-        <button type="submit" id="header-logo-text-button">Classic</button>
-    </form>
-</header>
+
+<jsp:include page="./page-parts/header.jsp" />
+
 <div class="login-container-border-wrap">
     <div class="login-container">
-        <form action="${pageContext.request.contextPath}/Controller?command=login" method="post">
+        <form id="login-form" action="${pageContext.request.contextPath}/Controller?command=login" method="post">
             <div id="login-title">Login Form</div>
             <div class="field-label">Login: </div>
-            <input type="text" class="field-input" name="login">
+            <input type="text" class="field-input" name="login" required>
             <div class="field-label">Password: </div>
-            <input type="text" class="field-input" name="password">
+            <input type="text" class="field-input" name="password" required>
             <button type="submit" name="login-submit" id="login-submit-button">Log in</button>
-            <input type="hidden" id="old-version" value="no">
+            <button class="change-mode" type="button" onclick="signupMode();">Signup</button>
         </form>
+
+        <form id="signup-form" action="${pageContext.request.contextPath}/Controller?command=signup" method="post">
+            <div id="signup-title">Signup Form</div>
+            <div class="field-label">Login: </div>
+            <input type="text" class="field-input" name="login" required>
+            <div class="field-label">Email: </div>
+            <input type="email" class="field-input" name="email" required>
+            <div class="field-label">Phone: </div>
+            <input type="tel" class="field-input" name="phone" required>
+            <div class="field-label">Name: </div>
+            <input type="text" class="field-input" name="name" required>
+            <div class="field-label">Surname: </div>
+            <input type="text" class="field-input" name="surname" required>
+            <div class="field-label">Password: </div>
+            <input type="text" class="field-input" name="password" required>
+            <button type="submit" name="login-submit" id="signup-submit-button">Sign up</button>
+            <button class="change-mode" type="button" onclick="loginMode();">Login</button>
+        </form>
+
     </div>
 </div>
+
 <footer></footer>
 </body>
 
 <script>
     document.body.classList.remove('page-stop-transition');
+
+    function loginMode() {
+        document.querySelector("#login-form").style.display = "inline";
+        document.querySelector("#signup-form").style.display = "none";
+        document.querySelector(".login-container").style.height = "21.5em";
+    }
+
+    function signupMode() {
+        document.querySelector("#login-form").style.display = "none";
+        document.querySelector("#signup-form").style.display = "inline";
+        document.querySelector(".login-container").style.height = "41.4em";
+    }
 </script>
 
 </html>

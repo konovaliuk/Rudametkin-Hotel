@@ -16,9 +16,9 @@
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 %>
 
-<jsp:useBean id="user" class="com.rudametkin.hotelsystem.businessLogic.UserService" scope="session" />
+<jsp:useBean id="user" class="com.rudametkin.hotelsystem.EntityObjects.UserWithRoles" scope="session" />
 
-<c:if test="${user.isAuthenticated == false}">
+<c:if test="${empty user.login}">
     <c:redirect url="/pages/login.jsp" />
 </c:if>
 

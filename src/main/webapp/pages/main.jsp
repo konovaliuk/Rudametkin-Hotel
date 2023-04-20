@@ -6,40 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Classic Hotel | Home Page</title>
-    <link href="${pageContext.request.contextPath}/resources/styles/page-styles.css" rel="stylesheet">
+    <link type="text/css" href="${pageContext.request.contextPath}/resources/styles/page-styles.css" rel="stylesheet">
 </head>
-<body style="height: 1400px;">
 
 <%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 %>
 
-<jsp:useBean id="user" class="com.rudametkin.hotelsystem.businessLogic.UserService" scope="session" />
+<jsp:useBean id="user" class="com.rudametkin.hotelsystem.EntityObjects.UserWithRoles" scope="session" />
 
-<header class="header">
-    <div class="left-half">
-        <form action="" method="post" id="logo-text-container" class="header-button-container">
-            <button type="submit" id="header-logo-text-button">Classic</button>
-        </form>
-    </div>
-    <div class="right-half">
-        <c:choose>
-            <c:when test="${user.isAuthenticated == false}">
-                <form action="${pageContext.request.contextPath}/Controller?command=redirect-login-form" method="post" id="login-button-container" class="header-button-container">
-                    <button type="submit" class="header-button">Log in</button>
-                </form>
-            </c:when>
-            <c:otherwise>
-                <form action="${pageContext.request.contextPath}/Controller?command=logout" method="post" id="logout-button-container" class="header-button-container">
-                    <button type="submit" class="header-button">Log out</button>
-                </form>
-                <form action="${pageContext.request.contextPath}/Controller?command=redirect-cabinet-page" method="post" id="cabinet-button-container" class="header-button-container">
-                    <button type="submit" class="header-button">Cabinet</button>
-                </form>
-            </c:otherwise>
-        </c:choose>
-    </div>
-</header>
+<body style="height: 1400px;">
+
+<jsp:include page="./page-parts/header.jsp" />
+
 <div id="preview-container">
     <span id="preview-text">Classic Hotel</span>
 </div>

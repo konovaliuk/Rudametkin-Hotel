@@ -1,31 +1,31 @@
-let todayDay = new Date();
-let dd = todayDay.getDate();
-let mm = todayDay.getMonth() + 1;
-let yyyy = todayDay.getFullYear();
+window.addEventListener("load", (event) => {
+    initDefaultDates();
+    let params = getFormDataFromGetParams();
+    if(params != null)
+       setFormDataFromParams(params);
 
-if (dd < 10) {
-    dd = '0' + dd;
+    updateFormInfoElement();
+    setFormInputsCondition();
+})
+
+function initDefaultDates() {
+    let todayDay = new Date();
+    let todayStr = getDateString(todayDay);
+
+    document.getElementById('input-arrival-date').valueAsDate = todayDay;
+    document.getElementById('input-arrival-date').min = todayStr;
+
+    document.getElementById('input-departure-date').valueAsDate = todayDay;
+    document.getElementById('input-departure-date').min = todayStr;
 }
 
-if (mm < 10) {
-    mm = '0' + mm;
-}
-
-let todayStr = yyyy + '-' + mm + '-' + dd;
-document.getElementById('arrival-date').valueAsDate = todayDay;
-document.getElementById('arrival-date').min = todayStr;
-
-document.getElementById('departure-date').valueAsDate = todayDay;
-document.getElementById('departure-date').min = todayStr;
-
-updateFormStringAndInputs();
 function increaseCounterValue(counterSPAN) {
     let input = counterSPAN.nextElementSibling.nextElementSibling;
     input.value = (Number(input.value) + 1).toString();
     counterSPAN.innerHTML = input.value;
     if(counterSPAN.previousElementSibling.disabled)
         counterSPAN.previousElementSibling.disabled = false;
-    updateFormStringAndInputs();
+    updateFormInfoElement();
 }
 
 function decreaseCounterValue(counterSPAN) {
@@ -34,23 +34,23 @@ function decreaseCounterValue(counterSPAN) {
     counterSPAN.innerHTML = input.value;
     if(input.value === "1")
         counterSPAN.previousElementSibling.disabled = true;
-    updateFormStringAndInputs();
+    updateFormInfoElement();
 }
 
 function updateMinDepartureDate() {
-    let arrivalDate = document.getElementById('arrival-date').valueAsDate;
-    let departureDate = document.getElementById('departure-date').valueAsDate;
+    let arrivalDate = document.getElementById('input-arrival-date').valueAsDate;
+    let departureDate = document.getElementById('input-departure-date').valueAsDate;
     if(departureDate < arrivalDate)
-        document.getElementById('departure-date').valueAsDate = arrivalDate;
-    updateFormStringAndInputs();
+        document.getElementById('input-departure-date').valueAsDate = arrivalDate;
+    updateFormInfoElement();
 }
 
-function updateFormStringAndInputs() {
-    let personsAmount = document.getElementById("persons-amount").innerHTML.trim();
-    let bedsAmount = document.getElementById("beds-amount").innerHTML.trim();
-    let roomType = document.getElementById("room-type-select").value;
-    let arrivalDateString = formatInputData(document.getElementById("arrival-date").value);
-    let departureDateString = formatInputData(document.getElementById("departure-date").value);
+function updateFormInfoElement() {
+    let personsAmount = document.getElementById("persons").innerHTML;
+    let bedsAmount = document.getElementById("beds").innerHTML;
+    let roomType = document.getElementById("input-room-type").value;
+    let arrivalDateString = formatInputData(document.getElementById("input-arrival-date").value);
+    let departureDateString = formatInputData(document.getElementById("input-departure-date").value);
     let resultString =  `${personsAmount} person(s), ${bedsAmount} bed(s), ${roomType}, ${arrivalDateString}-${departureDateString}`;
     document.getElementById("form-result-info").value = resultString;
 }
@@ -60,4 +60,57 @@ function formatInputData(stringData) {
     let mm = stringData.substring(5, 7);
     let dd = stringData.substring(8, 10);
     return `${dd}.${mm}.${yyyy}`;
+}
+
+
+function setFormInputsCondition() {
+    let persAmountView = document.querySelector("#persons");
+    persAmountView.previousElementSibling.disabled = Number(persAmountView.innerHTML) === 1;
+
+    let bedsAmountView = document.querySelector("#beds");
+    bedsAmountView.previousElementSibling.disabled = Number(bedsAmountView.innerHTML) === 1;
+
+    updateMinDepartureDate();
+}
+
+function getFormDataFromGetParams() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    const keys = ["persons", "beds", "arrival-date", "departure-date", "room-type"];
+    const params = new Map();
+
+    for(let key of keys)
+        params.set(key, urlParams.get(key))
+
+    return params;
+}
+
+function setFormDataFromParams(params) {
+   params.forEach((value, key) => {
+       if(value == null)
+           return;
+
+       let input = document.querySelector(`#input-${key}`);
+       console.log(key, value,`#input-${key}`);
+       input.value = value;
+
+       if(["persons", "beds"].includes(key)) {
+           let span = document.querySelector(`#${key}`);
+           span.innerHTML = value;
+       }
+   })
+}
+
+function getDateString(date) {
+    let dd = date.getDate();
+    let mm = date.getMonth() + 1;
+    let yyyy = date.getFullYear();
+
+    if (dd < 10)
+        dd = '0' + dd;
+    if (mm < 10)
+        mm = '0' + mm;
+
+    return yyyy + '-' + mm + '-' + dd;
 }

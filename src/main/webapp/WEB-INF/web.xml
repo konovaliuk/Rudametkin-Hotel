@@ -7,13 +7,23 @@
         <display-name>HotelSystemServlet</display-name>
         <description>My Single Servlet</description>
         <servlet-name>Controller</servlet-name>
-        <servlet-class>com.rudametkin.hotelsystem.controller.Controller</servlet-class>
+        <servlet-class>com.rudametkin.hotelsystem.Controller.Controller</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
-        <url-pattern>/classichotel*</url-pattern>
+        <url-pattern>/Controller</url-pattern>
+        <url-pattern>/home</url-pattern>
+        <url-pattern>/login</url-pattern>
+        <url-pattern>/cabinet</url-pattern>
+        <url-pattern>/search</url-pattern>
+        <url-pattern>/roomview</url-pattern>
+        <url-pattern>/error</url-pattern>
     </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>/pages/main.jsp</welcome-file>
+    </welcome-file-list>
 
     <session-config>
         <session-timeout>30</session-timeout>
@@ -22,11 +32,5 @@
     <error-page>
         <location>/pages/error.jsp</location>
     </error-page>
-
-
-
-    <welcome-file-list>
-        <welcome-file>/pages/main.jsp</welcome-file>
-    </welcome-file-list>
 </web-app>
 

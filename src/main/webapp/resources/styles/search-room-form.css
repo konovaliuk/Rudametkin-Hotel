@@ -94,13 +94,13 @@
     float: left;
 }
 
-#room-type-select {
+#input-room-type {
     font-size: 18px;
     padding: 2px;
     margin-left: 4px;
 }
 
-#room-type-select:focus {
+#input-room-type:focus {
     outline: none;
 }
 

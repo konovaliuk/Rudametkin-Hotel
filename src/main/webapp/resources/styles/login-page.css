@@ -1,21 +1,25 @@
 .login-container {
     background: white;
-    height: 100%;
+    height: 21.5em;
     width: 100%;
-    border-radius: 1.8em;
+    border-radius: 27px;
     padding: 1.5em;
+    transition: height 0.1s ease-in-out;
+    overflow: hidden;
+    margin: 0 auto;
 }
 
 .login-container-border-wrap {
     width: 20em;
-    height: 20em;
+    height: fit-content;
     background: linear-gradient(87deg, rgba(0,16,135,1) 0%, rgba(0,166,167,1) 100%);
-    padding: 3px;
+    padding: 4px;
     margin: 3em auto;
-    border-radius: 2em;
+    border-radius: 30px;
+    transition: height 0.1s ease-in-out;
 }
 
-#login-title {
+#login-title, #signup-title {
     text-align: center;
     font-size: 22px;
     font-family: "Georgia";
@@ -44,13 +48,13 @@
     outline: none;
 }
 
-#login-submit-button {
+#login-submit-button,  #signup-submit-button{
     transition: 0.15s ease;
     display: block;
     width: 7em;
     height: 3em;
     border-radius: 1.5em;
-    margin: 2.5em auto;
+    margin: 2.5em auto 1em auto;
     border: 2px solid black;
     background: linear-gradient(87deg, rgba(0,16,135,1) 0%, rgba(0,166,167,1) 100%);
     opacity: 0.7;
@@ -59,7 +63,25 @@
     font-size: 14px;
 }
 
-#login-submit-button:hover {
+#login-submit-button:hover, #signup-submit-button:hover {
     opacity: 1;
     cursor: pointer;
+}
+
+
+.change-mode {
+    background: none;
+    font-size: 16px;
+    color: #ababab;
+    border: none;
+    user-select: none;
+}
+
+.change-mode:hover {
+    color: #808080;
+    cursor: pointer;
+}
+
+#signup-form {
+    display: none;
 }
