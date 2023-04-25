@@ -1,4 +1,4 @@
-package com.rudametkin.hotelsystem.EntityObjects;
+package com.rudametkin.hotelsystem.Entity;
 
 public class Room {
     public enum RoomType {

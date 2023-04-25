@@ -1,8 +1,11 @@
-package com.rudametkin.hotelsystem.EntityObjects;
+package com.rudametkin.hotelsystem.DTO;
+
+import com.rudametkin.hotelsystem.Entitys.Role;
+import com.rudametkin.hotelsystem.Entitys.User;
 
 import java.util.List;
 
-public class UserWithRoles extends User {
+public class UserDto {
 
     private List<Role> roles;
 

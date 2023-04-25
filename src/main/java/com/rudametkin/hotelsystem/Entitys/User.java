@@ -1,10 +1,15 @@
-package com.rudametkin.hotelsystem.EntityObjects;
+package com.rudametkin.hotelsystem.Entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="users")
 public class User {
-    private int id = -1;
+
+    @Id
+    private int id;
     private String name;
     private String surname;
     private String phone;
