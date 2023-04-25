@@ -14,9 +14,6 @@
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 %>
 
-
-<jsp:useBean id="user" class="com.rudametkin.hotelsystem.EntityObjects.UserWithRoles" scope="session" />
-
 <body>
 
 
@@ -35,6 +32,8 @@
         <div id="error-info">
         </div>
     </div>
+
+<jsp:include page="./page-parts/footer.jsp" />
 
 </body>
 

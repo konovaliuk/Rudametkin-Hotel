@@ -1,17 +1,17 @@
-package com.rudametkin.hotelsystem.Services.ServiceHelpClasses;
+package com.rudametkin.hotelsystem.DTO;
 
 import com.rudametkin.hotelsystem.Entitys.Room;
 
 import java.sql.Timestamp;
 
-public class RoomSearchParameters {
+public class RoomSearchDto {
     private Room.RoomType type;
     private int capacity;
     private int bedsAmount;
     private Timestamp arrivalDate;
     private Timestamp departureDate;
 
-    public RoomSearchParameters() {
+    public RoomSearchDto() {
         type = Room.RoomType.Any;
         capacity = 1;
         bedsAmount = 1;
@@ -22,27 +22,27 @@ public class RoomSearchParameters {
         departureDate = new Timestamp(System.currentTimeMillis() + dayInMs);;
     }
 
-    public RoomSearchParameters setType(Room.RoomType type) {
+    public RoomSearchDto setType(Room.RoomType type) {
         this.type = type;
         return this;
     }
 
-    public RoomSearchParameters setBedsAmount(int amount) {
+    public RoomSearchDto setBedsAmount(int amount) {
         this.bedsAmount = amount;
         return this;
     }
 
-    public RoomSearchParameters setCapacity(int capacity) {
+    public RoomSearchDto setCapacity(int capacity) {
         this.capacity = capacity;
         return this;
     }
 
-    public RoomSearchParameters setDepartureDate(Timestamp date) {
+    public RoomSearchDto setDepartureDate(Timestamp date) {
         this.departureDate = date;
         return this;
     }
 
-    public RoomSearchParameters setArrivalDate(Timestamp date) {
+    public RoomSearchDto setArrivalDate(Timestamp date) {
         this.arrivalDate = date;
         return this;
     }

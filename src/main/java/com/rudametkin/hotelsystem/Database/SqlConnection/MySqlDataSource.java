@@ -16,6 +16,7 @@ public class MySqlDataSource {
         poolProps.setUsername(config.getProperty("db.user.name"));
         poolProps.setPassword(config.getProperty("db.user.password"));
         poolProps.setDriverClassName(config.getProperty("jdbc.driver.class.name"));
+        poolProps.setRemoveAbandoned(true);
 
         instance = new DataSource();
         instance.setPoolProperties(poolProps);

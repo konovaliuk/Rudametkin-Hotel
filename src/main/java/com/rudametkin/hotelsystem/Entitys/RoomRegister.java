@@ -1,11 +1,20 @@
-package com.rudametkin.hotelsystem.Entity;
+package com.rudametkin.hotelsystem.Entitys;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "roomregisters")
 public class RoomRegister {
     public enum RoomStatus {
         Occupied("Occupied"), Booked("Booked"), Prepearing("Prepearing"), NotAvailable("Not available");
-        private String value;
+        private final String value;
 
         RoomStatus(String value){
             this.value = value;
@@ -16,65 +25,28 @@ public class RoomRegister {
             return value;
         }
     }
-    private int id = -1;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(name = "room_number")
     private int roomNumber;
+    @Enumerated(EnumType.STRING)
     private RoomStatus status;
+
+    @Column(name = "start_date_time")
     private Timestamp startDateTime;
+    @Column(name = "end_date_time")
     private Timestamp endDateTime;
+    @Column(name = "client_id")
     private int clientId;
-    private void initValues(int id, int roomNumber, RoomStatus status, Timestamp startDateTime,
-                            Timestamp endDateTime, int clientId) {
-        this.id = id;
+
+    public RoomRegister(int roomNumber, RoomStatus status, Timestamp startDateTime, Timestamp endDateTime, int clientId) {
+        this.clientId = clientId;
         this.roomNumber = roomNumber;
         this.status = status;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        this.clientId = clientId;
     }
-    public RoomRegister() {}
-    public RoomRegister(int id, int roomNumber, RoomStatus status, Timestamp startDateTime,
-                        Timestamp endDateTime, int clientId) {
-        initValues(id, roomNumber, status, startDateTime, endDateTime, clientId);
-    }
-    public RoomRegister(int roomNumber, RoomStatus status, Timestamp startDateTime,
-                        Timestamp endDateTime, int clientId)
-    {
-        initValues(-1, roomNumber, status, startDateTime, endDateTime, clientId);
-    }
-    public int getId() {
-        return id;
-    }
-    public int getRoomNumber() {
-        return roomNumber;
-    }
-    public RoomStatus getStatus() {
-        return status;
-    }
-    public Timestamp getStartDateTime() {
-        return startDateTime;
-    }
-    public Timestamp getEndDateTime() {
-        return endDateTime;
-    }
-    public int getClientId() {
-        return clientId;
-    }
-    public void setRoomNumber(int newRoomNumber) {
-        roomNumber = newRoomNumber;
-    }
-    public void setStatus(RoomStatus newStatus) {
-        status = newStatus;
-    }
-    public void setStartDateTime(Timestamp newDateTime) {
-        startDateTime = newDateTime;
-    }
-    public void setEndDateTime(Timestamp newDateTime) {
-        endDateTime = newDateTime;
-    }
-    public void setClientId(int newClientId) {
-        clientId = newClientId;
-    }
-    public String toString() {
-        return Integer.toString(id) + " | " + Integer.toString(roomNumber) + " | " + status.toString() + " | " + startDateTime.toString() + " | " + endDateTime.toString() + " | " + Integer.toString(clientId);
-    }
+
 }

@@ -1,0 +1,65 @@
+.apartments-stats-container {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    border: 1px solid black;
+    border-radius: 20px;
+    height: 200px;
+    margin: 2em auto;
+    padding: 10px;
+}
+
+.apartments-stats-container .half {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.apartments-stats-container .body-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.form-data-container {
+    width: 90%;
+    margin: 2em auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+.form-data-container .field-label {
+    font-size: 18px;
+    margin: 18px 0 10px 0;
+}
+
+.form-data-container input {
+    font-size: 16px;
+    height: 26px;
+    padding: 3px;
+}
+
+.form-data-container .submit-booking {
+    display: block;
+    height: 40px;
+    width: 140px;
+    border-radius: 9px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    background: #0608e4;
+    margin: 1.5em auto 0 auto;
+}
+
+.form-data-container .submit-booking:hover {
+    cursor: pointer;
+    background: #0506c7;
+}
+
+.form-data-container .card-input {
+    height: 30px;
+    padding: 5px;
+}

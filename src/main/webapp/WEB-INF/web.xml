@@ -17,7 +17,7 @@
         <url-pattern>/login</url-pattern>
         <url-pattern>/cabinet</url-pattern>
         <url-pattern>/search</url-pattern>
-        <url-pattern>/roomview</url-pattern>
+        <url-pattern>/booking</url-pattern>
         <url-pattern>/error</url-pattern>
     </servlet-mapping>
 
@@ -33,4 +33,3 @@
         <location>/pages/error.jsp</location>
     </error-page>
 </web-app>
-

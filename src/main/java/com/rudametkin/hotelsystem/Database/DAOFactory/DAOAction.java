@@ -1,2 +1,6 @@
-package com.rudametkin.hotelsystem.Database.DAOFactory;public class DAOAction {
+package com.rudametkin.hotelsystem.Database.DAOFactory;
+
+@FunctionalInterface
+public interface DAOAction {
+    void apply() throws DAOException;
 }

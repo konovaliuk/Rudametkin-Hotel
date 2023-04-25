@@ -1,64 +1,71 @@
 package com.rudametkin.hotelsystem.Services;
 
+import com.rudametkin.hotelsystem.DTO.RegisterDto;
+import com.rudametkin.hotelsystem.DTO.UserDto;
+import com.rudametkin.hotelsystem.Database.DAOFactory.DAOException;
 import com.rudametkin.hotelsystem.Database.DAOFactory.IRoleDAO;
 import com.rudametkin.hotelsystem.Database.DAOFactory.IUserDAO;
 import com.rudametkin.hotelsystem.Database.DAOFactory.IUserRoleDAO;
 import com.rudametkin.hotelsystem.Database.MySqlDAOFactory.MySqlDAOFactory;
-import com.rudametkin.hotelsystem.Database.MySqlDAOFactory.MySqlUserRoleDAO;
-import com.rudametkin.hotelsystem.Database.TransactionHandler.TransactionHandler;
-import com.rudametkin.hotelsystem.Services.ServiceHelpClasses.RegisterDataCheckInfo;
-import com.rudametkin.hotelsystem.EntityObjects.Role;
-import com.rudametkin.hotelsystem.EntityObjects.User;
-import com.rudametkin.hotelsystem.EntityObjects.UserRole;
-import com.rudametkin.hotelsystem.EntityObjects.UserWithRoles;
+import com.rudametkin.hotelsystem.Database.MySqlDAOFactory.MySqlTransactionalDAO;
+import com.rudametkin.hotelsystem.Database.SqlConnection.MySqlDataSource;
+import com.rudametkin.hotelsystem.Database.TransactionHandling.*;
+import com.rudametkin.hotelsystem.Entitys.Role;
+import com.rudametkin.hotelsystem.Entitys.User;
+import com.rudametkin.hotelsystem.Entitys.UserRole;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
-    public UserWithRoles authenticateUser(String login, String password) {
-        return new TransactionHandler().execute(connection -> {
-            IUserDAO userDAO = MySqlDAOFactory.getInstance().getUserDAO();
-            User user = userDAO.findByLoginPassword(login, password, connection);
+    public UserDto authenticateUser(String login, String password) {
+        return new JDBCTransactionManager().execute(connection -> {
+            IUserDAO userDAO = MySqlDAOFactory.getInstance().getUserDAO(connection);
+            User user = userDAO.findByLoginPassword(login, password);
             if(user == null)
                 return null;
 
-            IUserRoleDAO userRoleDAO = MySqlDAOFactory.getInstance().getUserRoleDAO();
-            List<UserRole> userRoles = userRoleDAO.findByUserId(user.getId(), connection);
+            IUserRoleDAO userRoleDAO = MySqlDAOFactory.getInstance().getUserRoleDAO(connection);
+            List<UserRole> userRoles = userRoleDAO.findByUserId(user.getId());
 
-            IRoleDAO roleDAO = MySqlDAOFactory.getInstance().getRoleDAO();
+            IRoleDAO roleDAO = MySqlDAOFactory.getInstance().getRoleDAO(connection);
             List<Role> roles = new ArrayList<>();
             for(UserRole userRole : userRoles)
-                roles.add(roleDAO.findById(userRole.getRoleId(), connection));
+                roles.add(roleDAO.findById(userRole.getRoleId()));
 
-            return new UserWithRoles(user, roles);
+            return new UserDto(user, roles);
         });
     }
 
-    public RegisterDataCheckInfo checkRegisterData(User params) {
-        RegisterDataCheckInfo dataCheckInfo = new RegisterDataCheckInfo();
-        new TransactionHandler().execute(connection -> {
-            IUserDAO userDAO = MySqlDAOFactory.getInstance().getUserDAO();
-            dataCheckInfo.setIsUniqueEmail(userDAO.findByEmail(params.getEmail(), connection) == null);
-            dataCheckInfo.setIsUniqueLogin(userDAO.findByLogin(params.getLogin(), connection) == null);
-            dataCheckInfo.setIsUniquePhone(userDAO.findByPhone(params.getPhone(), connection) == null);
+    public RegisterDto checkRegisterData(User params) {
+        RegisterDto dataCheckInfo = new RegisterDto();
+
+        new JDBCTransactionManager().execute(connection -> {
+            IUserDAO userDAO = MySqlDAOFactory.getInstance().getUserDAO(connection);
+            dataCheckInfo.setUniqueEmail(userDAO.findByEmail(params.getEmail()) == null);
+            dataCheckInfo.setUniqueLogin(userDAO.findByLogin(params.getLogin()) == null);
+            dataCheckInfo.setUniquePhone(userDAO.findByPhone(params.getPhone()) == null);
         });
+
         return dataCheckInfo;
     }
 
-    public boolean tryRegisterUser(User params) {
-        Boolean success = new TransactionHandler().<Boolean>execute(connection -> {
-            IUserDAO userDAO = MySqlDAOFactory.getInstance().getUserDAO();
-            int id = userDAO.add(params, connection);
+    public boolean tryRegisterUser(User newUser) {
+        Boolean success = new JDBCTransactionManager().execute(connection -> {
+            IUserDAO userDAO = MySqlDAOFactory.getInstance().getUserDAO(connection);
+            int id = userDAO.save(newUser);
 
-            IRoleDAO roleDAO = MySqlDAOFactory.getInstance().getRoleDAO();
-            int clientRoleId = roleDAO.findByName("Client", connection).getId();
+            IRoleDAO roleDAO = MySqlDAOFactory.getInstance().getRoleDAO(connection);
+            int clientRoleId = roleDAO.findByName("Client").getId();
 
-            IUserRoleDAO userRoleDAO = MySqlDAOFactory.getInstance().getUserRoleDAO();
-            userRoleDAO.add(id, clientRoleId, connection);
+            IUserRoleDAO userRoleDAO = MySqlDAOFactory.getInstance().getUserRoleDAO(connection);
+            userRoleDAO.save(id, clientRoleId);
 
             return true;
         });
-        return (success != null) ? success : false;
+
+        return (success == null) ? false : success;
     }
 }

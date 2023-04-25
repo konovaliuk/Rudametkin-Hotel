@@ -1,39 +1,95 @@
-package com.rudametkin.hotelsystem.Entity;
+package com.rudametkin.hotelsystem.Entitys;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "bills")
 public class Bill {
-    private int id = -1;
+
+    public static class BillBuilder {
+        private final int registerId;
+        private float roomCharge = 0;
+        private float roomServiceCharge = 0;
+        private float barCharge = 0;
+        private float restaurantCharge = 0;
+        private float lateDepartureCharge = 0;
+        private float otherCharge = 0;
+        private boolean isPaid = false;
+
+        public BillBuilder(int registerId) {
+            this.registerId = registerId;
+        }
+
+        public BillBuilder addRoomCharge(float charge) {
+            this.roomCharge = charge;
+            return this;
+        }
+
+        public BillBuilder addRoomServiceCharge(float charge) {
+            this.roomServiceCharge = charge;
+            return this;
+        }
+
+        public BillBuilder addBarCharge(float charge) {
+            this.barCharge = charge;
+            return this;
+        }
+
+        public BillBuilder addRestaurantCharge(float charge) {
+            this.restaurantCharge = charge;
+            return this;
+        }
+
+        public BillBuilder addLateDepartureCharge(float charge) {
+            this.lateDepartureCharge = charge;
+            return this;
+        }
+
+        public BillBuilder addOtherCharge(float charge) {
+            this.otherCharge = charge;
+            return this;
+        }
+
+        public BillBuilder addPaid(boolean isPaid) {
+            this.isPaid = isPaid;
+            return this;
+        }
+
+        public Bill build() {
+            return new Bill(registerId, roomCharge, roomServiceCharge, barCharge, restaurantCharge,
+                    lateDepartureCharge, otherCharge, isPaid);
+        }
+    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(name = "register_id")
     private int registerId;
-    private int clientId;
-    private float roomCharge = 0;
-    private float roomServiceCharge = 0;
-    private float barCharge = 0;
-    private float restaurantCharge = 0;
-    private float lateDepartureCharge = 0;
-    private float otherCharge = 0;
+    @Column(name = "room_charge")
+    private float roomCharge;
+    @Column(name = "room_service")
+    private float roomServiceCharge;
+    @Column(name = "bar_charge")
+    private float barCharge;
+    @Column(name = "restaurant_charge")
+    private float restaurantCharge;
+    @Column(name = "late_departure_charge")
+    private float lateDepartureCharge;
+    @Column(name = "other_charge")
+    private float otherCharge;
+    @Column(name = "is_paid")
     private boolean isPaid;
 
-    public Bill() {}
-    public Bill(int id, int register_id, int client_id)
-    {
-        this.id = id;
-        this.clientId = client_id;
-        this.registerId = register_id;
-        this.isPaid = false;
-    }
-
-    public Bill(int register_id, int client_id)
-    {
-        this.clientId = client_id;
-        this.registerId = register_id;
-        this.isPaid = false;
-    }
-
-    public Bill(int id, int register_id, int client_id, float roomCharge, float roomServiceCharge, float barCharge, float restaurantCharge,
-                float lateDepartureCharge, float otherCharge, boolean isPaid)
-    {
-        this.id = id;
-        this.clientId = client_id;
-        this.registerId = register_id;
+    public Bill(int registerId, float roomCharge, float roomServiceCharge, float barCharge, float restaurantCharge,
+                float lateDepartureCharge, float otherCharge, boolean isPaid) {
+        this.registerId = registerId;
         this.roomCharge = roomCharge;
         this.roomServiceCharge = roomServiceCharge;
         this.barCharge = barCharge;
@@ -42,28 +98,4 @@ public class Bill {
         this.otherCharge = otherCharge;
         this.isPaid = isPaid;
     }
-
-    public int getId() { return id; }
-    public int getRegisterId() { return registerId; }
-    public int getClientId() { return clientId; }
-    public float getRoomCharge() { return roomCharge; }
-    public float getRoomServiceCharge() { return roomServiceCharge; }
-    public float getBarCharge() { return barCharge; }
-    public float getRestaurantCharge() { return restaurantCharge; }
-    public float getLateDepartureCharge() { return lateDepartureCharge; }
-    public float getOtherCharge() { return otherCharge; }
-    public float getTotalCharge() {
-        return roomCharge + roomServiceCharge + barCharge + restaurantCharge + lateDepartureCharge + otherCharge;
-    }
-    public boolean getIsPaid() { return isPaid; }
-
-    public void setRegisterId(int newRegId) { registerId = newRegId; }
-    public void setClientId(int newClientId) { clientId = newClientId; }
-    public void setRoomCharge(float newRoomCharge) { roomCharge = newRoomCharge; }
-    public void setRoomServiceCharge(float newRoomServiceCharge) { roomServiceCharge = newRoomServiceCharge; }
-    public void setBarCharge(float newBarCharge) { barCharge = newBarCharge; }
-    public void setRestaurantCharge(float newRestaurantCharge) { restaurantCharge = newRestaurantCharge; }
-    public void setLateDepartureCharge(float newLateDepCharge) { lateDepartureCharge = newLateDepCharge; }
-    public void setOtherCharge(float newOtherCharge) { otherCharge = newOtherCharge; }
-    public void setIsPaid(boolean newIsPaid) { isPaid = newIsPaid; }
 }

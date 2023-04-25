@@ -12,11 +12,15 @@ function initDefaultDates() {
     let todayDay = new Date();
     let todayStr = getDateString(todayDay);
 
-    document.getElementById('input-arrival-date').valueAsDate = todayDay;
+    let nextDay = new Date();
+    nextDay.setDate(nextDay.getDate() + 1);
+    let nextDayStr = getDateString(nextDay);
+
+    document.getElementById('input-arrival-date').value = todayStr;
     document.getElementById('input-arrival-date').min = todayStr;
 
-    document.getElementById('input-departure-date').valueAsDate = todayDay;
-    document.getElementById('input-departure-date').min = todayStr;
+    document.getElementById('input-departure-date').value = nextDayStr;
+    document.getElementById('input-departure-date').min = nextDayStr;
 }
 
 function increaseCounterValue(counterSPAN) {
@@ -40,8 +44,12 @@ function decreaseCounterValue(counterSPAN) {
 function updateMinDepartureDate() {
     let arrivalDate = document.getElementById('input-arrival-date').valueAsDate;
     let departureDate = document.getElementById('input-departure-date').valueAsDate;
-    if(departureDate < arrivalDate)
-        document.getElementById('input-departure-date').valueAsDate = arrivalDate;
+    if(departureDate < arrivalDate) {
+        let nextDay = new Date(arrivalDate);
+        nextDay.setDate(nextDay.getDate() + 1)
+        document.getElementById('input-departure-date').value = getDateString(nextDay);
+    }
+
     updateFormInfoElement();
 }
 

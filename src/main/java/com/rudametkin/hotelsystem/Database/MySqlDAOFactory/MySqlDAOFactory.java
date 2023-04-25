@@ -2,16 +2,12 @@ package com.rudametkin.hotelsystem.Database.MySqlDAOFactory;
 
 import com.rudametkin.hotelsystem.Database.DAOFactory.*;
 
+import java.sql.Connection;
+
 
 public class MySqlDAOFactory extends DAOFactory {
 
     private static MySqlDAOFactory instance = null;
-    private static IUserDAO userDAOInstance = null;
-    private static IRoomDAO roomDAOInstance = null;
-    private static IRoomRegisterDAO roomResisterDAOInstance = null;
-    private static IBillDAO billDAOInstance = null;
-    private static IRoleDAO roleDAOInstance = null;
-    private static IUserRoleDAO userRoleDAOInstance = null;
 
     private MySqlDAOFactory() {}
 
@@ -21,45 +17,51 @@ public class MySqlDAOFactory extends DAOFactory {
             instance = new MySqlDAOFactory();
         return instance;
     }
-    public IUserDAO getUserDAO()
-    {
-        if(userDAOInstance == null)
-            userDAOInstance = new MySqlUserDAO();
-        return userDAOInstance;
+    public IUserDAO getUserDAO() {
+        return new MySqlUserDAO();
     }
 
-    public IRoomDAO getRoomDAO()
-    {
-        if(roomDAOInstance == null)
-            roomDAOInstance = new MySqlRoomDAO();
-        return roomDAOInstance;
+    public IUserDAO getUserDAO(Connection connection) {
+        return new MySqlUserDAO(connection);
     }
 
-    public IRoomRegisterDAO getRoomRegisterDAO()
-    {
-        if(roomResisterDAOInstance == null)
-            roomResisterDAOInstance = new MySqlRoomRegisterDAO();
-        return roomResisterDAOInstance;
+    public IRoomDAO getRoomDAO() {
+        return new MySqlRoomDAO();
     }
 
-    public IBillDAO getBillDAO()
-    {
-        if(billDAOInstance == null)
-            billDAOInstance = new MySqlBillDAO();
-        return billDAOInstance;
+    public IRoomDAO getRoomDAO(Connection connection) {
+        return new MySqlRoomDAO(connection);
     }
 
-    public IRoleDAO getRoleDAO()
-    {
-        if(roleDAOInstance == null)
-            roleDAOInstance = new MySqlRoleDAO();
-        return roleDAOInstance;
+    public IRoomRegisterDAO getRoomRegisterDAO() {
+        return new MySqlRoomRegisterDAO();
     }
 
-    public IUserRoleDAO getUserRoleDAO()
-    {
-        if(userRoleDAOInstance == null)
-            userRoleDAOInstance = new MySqlUserRoleDAO();
-        return userRoleDAOInstance;
+    public IRoomRegisterDAO getRoomRegisterDAO(Connection connection) {
+        return new MySqlRoomRegisterDAO(connection);
+    }
+
+    public IBillDAO getBillDAO() {
+        return new MySqlBillDAO();
+    }
+
+    public IBillDAO getBillDAO(Connection connection) {
+        return new MySqlBillDAO(connection);
+    }
+
+    public IRoleDAO getRoleDAO() {
+        return new MySqlRoleDAO();
+    }
+
+    public IRoleDAO getRoleDAO(Connection connection) {
+        return new MySqlRoleDAO(connection);
+    }
+
+    public IUserRoleDAO getUserRoleDAO() {
+        return new MySqlUserRoleDAO();
+    }
+
+    public IUserRoleDAO getUserRoleDAO(Connection connection) {
+        return new MySqlUserRoleDAO(connection);
     }
 }

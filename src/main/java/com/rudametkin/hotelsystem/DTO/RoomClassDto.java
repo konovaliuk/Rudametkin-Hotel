@@ -2,12 +2,11 @@ package com.rudametkin.hotelsystem.DTO;
 
 
 import com.rudametkin.hotelsystem.Entitys.Room;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoomClassDto {
     private Room.RoomType type;
     private int roomsAmount;
@@ -16,5 +15,6 @@ public class RoomClassDto {
     private boolean miniBar;
     private boolean tv;
     private boolean dryer;
+
     private float price;
 }

@@ -9,26 +9,21 @@ import java.util.Map;
 
 public class ControllerHelper {
     private static ControllerHelper instance = null;
-    private Map<String, ICommand> commands;
+    private final Map<String, ICommand> commands;
     private ControllerHelper() {
-        try {
-            commands = new HashMap<>();
+        commands = new HashMap<>();
 
-            commands.put("load-login", new LoginPage());
-            commands.put("load-home", new HomePage());
-            commands.put("load-cabinet", new CabinetPage());
-            commands.put("load-error", new ErrorPage());
+        commands.put("load-login", new LoginPage());
+        commands.put("load-home", new HomePage());
+        commands.put("load-cabinet", new CabinetPage());
+        commands.put("load-error", new ErrorPage());
+        commands.put("load-search", new SearchPage());
+        commands.put("load-booking", new BookingPage());
 
-            commands.put("login", new Login());
-            commands.put("signup", new Signup());
-            commands.put("logout", new Logout());
-            commands.put("load-search", new SearchPage());
-            commands.put("prev-search-page", new PrevSearchPage());
-            commands.put("next-search-page", new NextSearchPage());
-
-        } catch (Exception e) {
-            commands = null;
-        }
+        commands.put("login", new Login());
+        commands.put("signup", new Signup());
+        commands.put("logout", new Logout());
+        commands.put("book", new Book());
     }
 
     public static ControllerHelper getInstance() {
@@ -51,6 +46,7 @@ public class ControllerHelper {
             String requestUri = request.getRequestURI().substring(request.getContextPath().length() + 1) ;
             String loadCommandName = "load-" + requestUri;
             foundCommand = commands.get(loadCommandName);
+
             if(foundCommand != null)
                 return commands.get(loadCommandName);
             else

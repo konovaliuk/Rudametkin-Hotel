@@ -1,4 +1,6 @@
-package com.rudametkin.hotelsystem.Entitys;
+package com.rudametkin.hotelsystem.DTO;
+
+import com.rudametkin.hotelsystem.Entitys.Room;
 
 public class RoomWithInfo {
     private Room room;
@@ -39,13 +41,13 @@ public class RoomWithInfo {
         return room.getDoubleBedsAmount();
     }
     public boolean getHasMiniBar() {
-        return room.getHasMiniBar();
+        return room.isMiniBar();
     }
     public boolean getHasTV() {
-        return room.getHasTV();
+        return room.isTv();
     }
     public boolean getHasDryer() {
-        return room.getHasDryer();
+        return room.isDryer();
     }
     public float getPrice() {
         return room.getPrice();

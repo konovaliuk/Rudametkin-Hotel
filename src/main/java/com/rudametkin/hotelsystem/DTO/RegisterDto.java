@@ -1,2 +1,15 @@
-package com.rudametkin.hotelsystem.DTO;public class RegisterDto {
+package com.rudametkin.hotelsystem.DTO;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+public class RegisterDto {
+    private boolean isUniqueLogin = false;
+    private boolean isUniqueEmail = false;
+    private boolean isUniquePhone = false;
+    public boolean isRegisterAvailable() {
+        return isUniqueLogin && isUniqueEmail && isUniquePhone;
+    }
 }

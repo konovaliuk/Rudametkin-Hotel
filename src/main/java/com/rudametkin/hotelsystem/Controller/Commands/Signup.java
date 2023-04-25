@@ -1,7 +1,7 @@
 package com.rudametkin.hotelsystem.Controller.Commands;
 
-import com.rudametkin.hotelsystem.EntityObjects.User;
-import com.rudametkin.hotelsystem.Services.ServiceHelpClasses.RegisterDataCheckInfo;
+import com.rudametkin.hotelsystem.Entitys.User;
+import com.rudametkin.hotelsystem.DTO.RegisterDto;
 import com.rudametkin.hotelsystem.Services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,14 +19,14 @@ public class Signup implements ICommand {
         signupFormData.setPhone(request.getParameter("phone"));
 
         UserService userService = new UserService();
-        RegisterDataCheckInfo checkDataInfo = userService.checkRegisterData(signupFormData);
+        RegisterDto checkDataInfo = userService.checkRegisterData(signupFormData);
         if(checkDataInfo.isRegisterAvailable() == false) {
             String errorMsg = "Register data is not available. ";
-            if(!checkDataInfo.getIsUniqueEmail())
+            if(!checkDataInfo.isUniqueEmail())
                 errorMsg += signupFormData.getEmail() + " is already taken. ";
-            if(!checkDataInfo.getIsUniqueLogin())
+            if(!checkDataInfo.isUniqueLogin())
                 errorMsg += signupFormData.getLogin() + " is already taken. ";
-            if(!checkDataInfo.getIsUniquePhone())
+            if(!checkDataInfo.isUniquePhone())
                 errorMsg += signupFormData.getPhone() + " is already taken. ";
             new Error(errorMsg).execute(request, response);
             return;

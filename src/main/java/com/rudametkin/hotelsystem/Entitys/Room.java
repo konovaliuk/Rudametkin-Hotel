@@ -1,10 +1,20 @@
-package com.rudametkin.hotelsystem.Entity;
+package com.rudametkin.hotelsystem.Entitys;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name="rooms")
 public class Room {
     public enum RoomType {
         Economy("Economy"), Standard("Standard"), Deluxe("Deluxe"), Suite("Suite"), Presidential("Presidential"), Any("Any");
 
-        private String value;
+        private final String value;
 
         RoomType(String value){
             this.value = value;
@@ -15,93 +25,22 @@ public class Room {
             return value;
         }
     }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int number;
+    @Enumerated(EnumType.STRING)
     private RoomType type;
+
+    @Column(name="rooms_amount")
     private int roomsAmount;
+    @Column(name="single_beds_amount")
     private int singleBedsAmount;
+    @Column(name="double_beds_amount")
     private int doubleBedsAmount;
-    private boolean hasMiniBar;
-    private boolean hasTV;
-    private boolean hasDryer;
+    @Column(name="mini_bar")
+    private boolean miniBar;
+    private boolean tv;
+    private boolean dryer;
     private float price;
-    private void initValues(int number, RoomType type, int roomsAmount, int singleBedsAmount, int doubleBedsAmount,
-                       boolean hasMiniBar, boolean hasTV, boolean hasDryer, float price) {
-        this.number = number;
-        this.type = type;
-        this.roomsAmount = roomsAmount;
-        this.singleBedsAmount = singleBedsAmount;
-        this.doubleBedsAmount = doubleBedsAmount;
-        this.hasMiniBar = hasMiniBar;
-        this.hasTV = hasTV;
-        this.hasDryer = hasDryer;
-        this.price = price;
-    }
-    public Room(int number, RoomType type, int roomsAmount, int singleBedsAmount, int doubleBedsAmount,
-                     boolean hasMiniBar, boolean hasTV, boolean hasDryer, float price)
-    {
-        initValues(number, type, roomsAmount, singleBedsAmount, doubleBedsAmount, hasMiniBar, hasTV, hasDryer, price);
-    }
-
-    public Room(RoomType type, int roomsAmount, int singleBedsAmount, int doubleBedsAmount,
-                     boolean hasMiniBar, boolean hasTV, boolean hasDryer, float price)
-    {
-        initValues(-1, type, roomsAmount, singleBedsAmount, doubleBedsAmount, hasMiniBar, hasTV, hasDryer, price);
-    }
-
-    public int getNumber() {
-        return number;
-    }
-    public RoomType getType() {
-        return type;
-    }
-    public int getRoomsAmount() {
-        return roomsAmount;
-    }
-    public int getSingleBedsAmount() {
-        return singleBedsAmount;
-    }
-    public int getDoubleBedsAmount() {
-        return doubleBedsAmount;
-    }
-    public boolean getHasMiniBar() {
-        return hasMiniBar;
-    }
-    public boolean getHasTV() {
-        return hasTV;
-    }
-    public boolean getHasDryer() {
-        return hasDryer;
-    }
-    public float getPrice() {
-        return price;
-    }
-    public void setType(RoomType newType) {
-        type = newType;
-    }
-    public void setRoomsAmount(int newRoomsAmount) {
-        roomsAmount = newRoomsAmount;
-    }
-    public void setSingleBedsAmount(int newSingleBedsAmount) {
-        singleBedsAmount = newSingleBedsAmount;
-    }
-    public void setDoubleBedsAmount(int newDoubleBedsAmount) {
-        doubleBedsAmount = newDoubleBedsAmount;
-    }
-    public void setHasMiniBar(boolean hasMiniBar) {
-        this.hasMiniBar = hasMiniBar;
-    }
-    public void setHasTV(boolean hasTV) {
-        this.hasTV = hasTV;
-    }
-    public void setHasDryer(boolean hasDryer) {
-        this.hasDryer = hasDryer;
-    }
-    public void setPrice(float newPrice) {
-        price = newPrice;
-    }
-    public String toString() {
-        return Integer.toString(number) + " | " + type.toString() + " | Single beds amount : " + Integer.toString(singleBedsAmount) +
-                " | Double beds amount : " + Integer.toString(doubleBedsAmount) + " | Rooms amount: " + Integer.toString(roomsAmount) +
-                " | Price: " + Float.toString(price);
-    }
 }

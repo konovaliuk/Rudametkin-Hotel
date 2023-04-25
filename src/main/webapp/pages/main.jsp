@@ -13,9 +13,7 @@
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 %>
 
-<jsp:useBean id="user" class="com.rudametkin.hotelsystem.EntityObjects.UserWithRoles" scope="session" />
-
-<body style="height: 1400px;">
+<body>
 
 <jsp:include page="./page-parts/header.jsp" />
 
@@ -63,5 +61,7 @@
         </div>
     </div>
 </div>
+
+<jsp:include page="./page-parts/footer.jsp" />
 </body>
 </html>

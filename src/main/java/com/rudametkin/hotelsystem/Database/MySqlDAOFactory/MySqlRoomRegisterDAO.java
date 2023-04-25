@@ -1,102 +1,109 @@
 package com.rudametkin.hotelsystem.Database.MySqlDAOFactory;
 
+import com.rudametkin.hotelsystem.DTO.RoomRegisterDto;
 import com.rudametkin.hotelsystem.Database.DAOFactory.DAOException;
 import com.rudametkin.hotelsystem.Database.DAOFactory.IRoomRegisterDAO;
 import com.rudametkin.hotelsystem.Database.SqlConnection.MySqlDataSource;
-import com.rudametkin.hotelsystem.EntityObjects.RoomRegister;
+import com.rudametkin.hotelsystem.Entitys.RoomRegister;
 import org.apache.tomcat.jdbc.pool.DataSource;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
-public class MySqlRoomRegisterDAO implements IRoomRegisterDAO {
-    private void handleSQLException(SQLException e) throws DAOException {
-        if(e.getMessage().equals("MySqlConnectionError"))
-            throw new DAOException("MySqlConnectionError");
-        else
-            throw new DAOException("ExecuteStatementError|roomregisters");
+public class MySqlRoomRegisterDAO extends MySqlTransactionalDAO implements IRoomRegisterDAO {
+    public MySqlRoomRegisterDAO() {
+        connection = null;
     }
+    public MySqlRoomRegisterDAO(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
-    public void add(RoomRegister roomRegister) throws DAOException {
-        try {
-            DataSource msds = MySqlDataSource.getInstance();
-            Connection con = msds.getConnection();
-            PreparedStatement stmt = con.prepareStatement(
+    public int save(RoomRegister roomRegister) throws DAOException {
+        return executeInTransaction(() -> {
+            int key = -1;
+            ResultSet resultSet = null;
+            try(PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO roomregisters (room_number, status, start_date_time, end_date_time, client_id) " +
-                            "VALUES (?,?,?,?,?);");
-            stmt.setInt(1, roomRegister.getRoomNumber());
-            stmt.setString(2, roomRegister.getStatus().toString());
-            stmt.setTimestamp(3, roomRegister.getStartDateTime());
-            stmt.setTimestamp(4, roomRegister.getEndDateTime());
-            if(roomRegister.getClientId() != -1)
+                            "VALUES (?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS)) {
+
+                stmt.setInt(1, roomRegister.getRoomNumber());
+                stmt.setString(2, roomRegister.getStatus().toString());
+                stmt.setTimestamp(3, roomRegister.getStartDateTime());
+                stmt.setTimestamp(4, roomRegister.getEndDateTime());
                 stmt.setInt(5, roomRegister.getClientId());
-            else
-                stmt.setNull(5, java.sql.Types.INTEGER);
 
-            stmt.execute();
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            handleSQLException(e);
-        }
+                stmt.executeUpdate();
+                resultSet = stmt.getGeneratedKeys();
+                resultSet.next();
+                key = resultSet.getInt(1);
+            } catch (SQLException e) {
+                throw new DAOException(e.getMessage());
+            } finally {
+                if(resultSet != null)
+                    try {
+                        resultSet.close();
+                    } catch (SQLException ignore) {}
+                return key;
+            }
+        });
     }
     @Override
-    public ArrayList<RoomRegister> findByRoomNumber(int number) throws DAOException {
-        try {
-            DataSource msds = MySqlDataSource.getInstance();
-            Connection con = msds.getConnection();
-            CallableStatement stmt = con.prepareCall("SELECT * FROM roomregisters WHERE room_number = ? ;");
-            stmt.setInt(1, number);
-            ResultSet resultSet = stmt.executeQuery();
-            ArrayList<RoomRegister> list = new ArrayList<>();
-            while (resultSet.next())
-            {
-                int client_id = -1;
-                if(resultSet.getInt(6) != 0)
-                    client_id = resultSet.getInt(6);
-
-                list.add(new RoomRegister(resultSet.getInt(1), resultSet.getInt(2), RoomRegister.RoomStatus.valueOf(resultSet.getString(3)),
-                        resultSet.getTimestamp(4),resultSet.getTimestamp(5), client_id));
+    public RoomRegister findLastByRoomNumber(int number) throws DAOException {
+        return executeInTransaction(() -> {
+            ResultSet resultSet = null;
+            RoomRegister roomRegister = null;
+            try(CallableStatement stmt = connection.prepareCall("SELECT * FROM roomregisters WHERE room_number = ? ORDER BY start_date_time DESC LIMIT 1;")) {
+                stmt.setInt(1, number);
+                resultSet = stmt.executeQuery();
+                if(resultSet.next())
+                    roomRegister = new RoomRegister(resultSet.getInt(1), resultSet.getInt(2), RoomRegister.RoomStatus.valueOf(resultSet.getString(3)),
+                            resultSet.getTimestamp(4),resultSet.getTimestamp(5), resultSet.getInt(6));
+            } catch (SQLException e) {
+                throw new DAOException(e.getMessage());
+            } finally {
+                if(resultSet != null)
+                    try {
+                        resultSet.close();
+                    } catch (SQLException ignore) {}
+                return roomRegister;
             }
-            stmt.close();
-            resultSet.close();
-            con.close();
-            return list;
-        } catch (SQLException e) {
-            handleSQLException(e);
-            return new ArrayList<>();
-        }
+        });
     }
+
     @Override
-    public ArrayList<RoomRegister> findByRoomNumberAtCurrentTime(int number) throws DAOException {
-        try {
-            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
-            DataSource msds = MySqlDataSource.getInstance();
-            Connection con = msds.getConnection();
-            CallableStatement stmt = con.prepareCall("SELECT * FROM roomregisters WHERE room_number = ? " +
-                    "AND start_date_time > ? AND end_date_time < ? ;");
-            stmt.setInt(1, number);
-            stmt.setTimestamp(2, currentTimestamp);
-            stmt.setTimestamp(3, currentTimestamp);
-
-            ResultSet resultSet = stmt.executeQuery();
-            ArrayList<RoomRegister> list = new ArrayList<>();
-            while (resultSet.next())
-            {
-                int client_id = -1;
-                if(resultSet.getInt(6) != 0)
-                    client_id = resultSet.getInt(6);
-
-                list.add(new RoomRegister(resultSet.getInt(1), resultSet.getInt(2), RoomRegister.RoomStatus.valueOf(resultSet.getString(3)),
-                        resultSet.getTimestamp(4),resultSet.getTimestamp(5), client_id));
+    public void removeById(int id) throws DAOException {
+        executeInTransaction(() -> {
+            try(PreparedStatement stmt = connection.prepareStatement("DELETE FROM roomregisters WHERE id = ?;")) {
+                stmt.setInt(1, id);
+                stmt.execute();
+            } catch (SQLException e) {
+                throw new DAOException(e.getMessage());
             }
-            stmt.close();
-            resultSet.close();
-            con.close();
-            return list;
-        } catch (SQLException e) {
-            handleSQLException(e);
-            return new ArrayList<>();
-        }
+        });
+    }
+
+    @Override
+    public List<RoomRegister> findAllByClientId(int clientId) throws DAOException {
+        return executeInTransaction(() -> {
+            ResultSet resultSet = null;
+            List<RoomRegister> list = new ArrayList<>();
+            try(CallableStatement stmt = connection.prepareCall("SELECT * FROM roomregisters WHERE client_id = ?; ")) {
+                stmt.setInt(1, clientId);
+                resultSet = stmt.executeQuery();
+                while(resultSet.next())
+                    list.add(new RoomRegister(resultSet.getInt(1), resultSet.getInt(2), RoomRegister.RoomStatus.valueOf(resultSet.getString(3)),
+                            resultSet.getTimestamp(4),resultSet.getTimestamp(5), resultSet.getInt(6)));
+            } catch (SQLException e) {
+                throw new DAOException(e.getMessage());
+            } finally {
+                if(resultSet != null)
+                    try {
+                        resultSet.close();
+                    } catch (SQLException ignore) {}
+                return list;
+            }
+        });
     }
 }

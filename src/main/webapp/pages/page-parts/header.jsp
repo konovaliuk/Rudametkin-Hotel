@@ -7,7 +7,7 @@
   </div>
   <div class="right-half">
     <c:choose>
-      <c:when test="${empty user.login}">
+      <c:when test="${empty sessionScope.user}">
         <c:if test="${requestScope['javax.servlet.forward.request_uri'] != pageContext.request.contextPath.concat('/login')}">
           <a href="${pageContext.request.contextPath}/login" id="login-button-container" class="header-button-container">
             <button type="submit" class="header-button">Log in</button>

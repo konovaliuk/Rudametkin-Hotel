@@ -1,11 +1,14 @@
 package com.rudametkin.hotelsystem.Database.DAOFactory;
 
-import com.rudametkin.hotelsystem.EntityObjects.RoomRegister;
+import com.rudametkin.hotelsystem.DTO.RoomRegisterDto;
+import com.rudametkin.hotelsystem.Entitys.RoomRegister;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface IRoomRegisterDAO {
-    void add(RoomRegister roomRegister) throws DAOException;
-    ArrayList<RoomRegister> findByRoomNumber(int number) throws DAOException;
-    ArrayList<RoomRegister> findByRoomNumberAtCurrentTime(int number) throws DAOException;
+    int save(RoomRegister roomRegister) throws DAOException;
+    void removeById(int id) throws DAOException;
+    RoomRegister findLastByRoomNumber(int number) throws DAOException;
+    List<RoomRegister> findAllByClientId(int id) throws DAOException;
 }

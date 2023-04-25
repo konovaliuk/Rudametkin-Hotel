@@ -1,12 +1,11 @@
 package com.rudametkin.hotelsystem.Database.DAOFactory;
 
-import com.rudametkin.hotelsystem.EntityObjects.Bill;
+import com.rudametkin.hotelsystem.Entitys.Bill;
 
 import java.util.ArrayList;
 
 public interface IBillDAO {
-    void add(Bill bill) throws DAOException;
+    void save(Bill bill) throws DAOException;
     void update(Bill bill) throws DAOException;
-    ArrayList<Bill> findByClientId(int clientId) throws DAOException;
     ArrayList<Bill> findByRegisterId(int clientId) throws DAOException;
 }
