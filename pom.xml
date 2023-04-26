@@ -17,6 +17,7 @@
         <junit.version>5.9.1</junit.version>
     </properties>
 
+
     <dependencies>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -26,6 +27,16 @@
                 <exclusion>
                     <groupId>javax.servlet</groupId>
                     <artifactId>servlet-api</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-core</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>javax.persistence</groupId>
+                    <artifactId>javax.persistence-api</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -59,6 +70,8 @@
             <version>2.2</version>
         </dependency>
 
+
+
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -73,6 +86,12 @@
             <version>9.0.73</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.6.15.Final</version>
+        </dependency>
 
 
     </dependencies>

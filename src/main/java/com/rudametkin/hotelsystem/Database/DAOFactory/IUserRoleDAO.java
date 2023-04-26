@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public interface IUserRoleDAO {
-    void save(int userId, int roleId) throws DAOException;
-    void remove(int userId, int roleId) throws DAOException;
+    void save(UserRole userRole) throws DAOException;
+    void removeById(int userRoleId) throws DAOException;
     List<UserRole> findByUserId(int userId) throws DAOException;
 }

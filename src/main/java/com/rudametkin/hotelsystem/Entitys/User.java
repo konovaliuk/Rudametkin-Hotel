@@ -25,4 +25,17 @@ public class User {
     @Column(name="user_info")
     private String userInfo;
 
+    public User(String name, String surname, String phone, String email, String login, String password, String userInfo) {
+        this.name = name;
+        this.surname = surname;
+        this.phone = phone;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+        this.userInfo = userInfo;
+    }
+
+    public String toString() {
+        return "User { " + name + ", " + surname + ", " + login + ", " + password + " } ";
+    }
 }

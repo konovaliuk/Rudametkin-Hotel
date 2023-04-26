@@ -29,10 +29,10 @@ public class MySqlRoleDAO extends MySqlTransactionalDAO implements IRoleDAO {
         });
     }
     @Override
-    public void removeByName(String name) throws DAOException {
+    public void removeById(int id) throws DAOException {
         executeInTransaction(() -> {
-            try(PreparedStatement stmt = connection.prepareStatement("DELETE FROM roles WHERE name = ?;")) {
-                stmt.setString(1, name);
+            try(PreparedStatement stmt = connection.prepareStatement("DELETE FROM roles WHERE id = ?;")) {
+                stmt.setInt(1, id);
                 stmt.execute();
             } catch (SQLException e) {
                 throw new DAOException(e.getMessage());

@@ -22,4 +22,9 @@ public class UserRole {
     private int userId;
     @Column(name="role_id")
     private int roleId;
+
+    public UserRole(int userId, int roleId) {
+        this.userId = userId;
+        this.roleId = roleId;
+    }
 }

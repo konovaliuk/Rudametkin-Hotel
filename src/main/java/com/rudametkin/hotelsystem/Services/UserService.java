@@ -61,7 +61,8 @@ public class UserService {
             int clientRoleId = roleDAO.findByName("Client").getId();
 
             IUserRoleDAO userRoleDAO = MySqlDAOFactory.getInstance().getUserRoleDAO(connection);
-            userRoleDAO.save(id, clientRoleId);
+            UserRole userRole = new UserRole(id, clientRoleId);
+            userRoleDAO.save(userRole);
 
             return true;
         });

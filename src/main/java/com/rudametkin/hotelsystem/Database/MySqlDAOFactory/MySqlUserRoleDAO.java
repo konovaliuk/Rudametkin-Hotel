@@ -19,12 +19,12 @@ public class MySqlUserRoleDAO extends MySqlTransactionalDAO implements IUserRole
     }
 
     @Override
-    public void save(int userId, int roleId) throws DAOException {
+    public void save(UserRole userRole) throws DAOException {
         executeInTransaction(() -> {
             try(PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO userroles (user_id, role_id) VALUES (?, ?);")) {
-                stmt.setInt(1, userId);
-                stmt.setInt(2, roleId);
+                stmt.setInt(1, userRole.getUserId());
+                stmt.setInt(2, userRole.getRoleId());
                 stmt.execute();
             } catch (SQLException e) {
                 throw new DAOException(e.getMessage());
@@ -33,12 +33,11 @@ public class MySqlUserRoleDAO extends MySqlTransactionalDAO implements IUserRole
 
     }
     @Override
-    public void remove(int userId, int roleId) throws DAOException {
+    public void removeById(int userRoleId) throws DAOException {
         executeInTransaction(() -> {
             try(PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM userroles WHERE user_id = ? AND role_id = ? ;")) {
-                stmt.setInt(1, userId);
-                stmt.setInt(2, roleId);
+                    "DELETE FROM userroles WHERE user_role_id = ? ;")) {
+                stmt.setInt(1, userRoleId);
                 stmt.execute();
             } catch (SQLException e) {
                 throw new DAOException(e.getMessage());

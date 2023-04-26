@@ -6,12 +6,6 @@ import com.rudametkin.hotelsystem.Database.MySqlDAOFactory.*;
 public class JPADAOFactory extends DAOFactory {
 
     private static JPADAOFactory instance = null;
-    private static IUserDAO userDAOInstance = null;
-    private static IRoomDAO roomDAOInstance = null;
-    private static IRoomRegisterDAO roomResisterDAOInstance = null;
-    private static IBillDAO billDAOInstance = null;
-    private static IRoleDAO roleDAOInstance = null;
-    private static IUserRoleDAO userRoleDAOInstance = null;
 
     private JPADAOFactory() {}
 
@@ -21,45 +15,27 @@ public class JPADAOFactory extends DAOFactory {
             instance = new JPADAOFactory();
         return instance;
     }
-    public IUserDAO getUserDAO()
-    {
-        if(userDAOInstance == null)
-            userDAOInstance = new JPAUserDAO();
-        return userDAOInstance;
+    public IUserDAO getUserDAO() {
+        return new JPAUserDAO();
     }
 
-    public IRoomDAO getRoomDAO()
-    {
-        if(roomDAOInstance == null)
-            roomDAOInstance = new JPARoomDAO();
-        return roomDAOInstance;
+    public IRoomDAO getRoomDAO() {
+        return new JPARoomDAO();
     }
 
-    public IRoomRegisterDAO getRoomRegisterDAO()
-    {
-        if(roomResisterDAOInstance == null)
-            roomResisterDAOInstance = new JPARoomRegisterDAO();
-        return roomResisterDAOInstance;
+    public IRoomRegisterDAO getRoomRegisterDAO() {
+        return new JPARoomRegisterDAO();
     }
 
-    public IBillDAO getBillDAO()
-    {
-        if(billDAOInstance == null)
-            billDAOInstance = new JPABillDAO();
-        return billDAOInstance;
+    public IBillDAO getBillDAO() {
+        return new JPABillDAO();
     }
 
-    public IRoleDAO getRoleDAO()
-    {
-        if(roleDAOInstance == null)
-            roleDAOInstance = new JPARoleDAO();
-        return roleDAOInstance;
+    public IRoleDAO getRoleDAO() {
+        return new JPARoleDAO();
     }
 
-    public IUserRoleDAO getUserRoleDAO()
-    {
-        if(userRoleDAOInstance == null)
-            userRoleDAOInstance = new JPAUserRoleDAO();
-        return userRoleDAOInstance;
+    public IUserRoleDAO getUserRoleDAO() {
+        return new JPAUserRoleDAO();
     }
 }
