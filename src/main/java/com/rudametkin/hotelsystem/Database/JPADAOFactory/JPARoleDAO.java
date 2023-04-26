@@ -15,16 +15,21 @@ public class JPARoleDAO implements IRoleDAO {
     @Override
     public void save(Role role) throws DAOException {
         try {
+            entityManager.getTransaction().begin();
             entityManager.persist(role);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
+            entityManager.getTransaction().rollback();
             throw new DAOException(e.getMessage());
         }
     }
     @Override
     public void removeById(int id) throws DAOException {
+        entityManager.getTransaction().begin();
         Role role = entityManager.find(Role.class, id);
         if(role != null)
             entityManager.remove(role);
+        entityManager.getTransaction().commit();
     }
     @Override
     public Role findById(int id) throws DAOException {

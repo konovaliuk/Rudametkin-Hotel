@@ -79,6 +79,6 @@ public class Main {
         Test2_FindFreeRoomClassesByParams("Test #3.", rsd);
         Test3_FindFreeRoomByClassName("Test #4.", new RoomClassDto(Room.RoomType.Suite, 2, 0, 2, true, true, false, 25), rsd.getArrivalDate(), rsd.getDepartureDate());
 
-        Test4_UpdateUserPassword("Test #5.", "VyaSik", "12345");
+        Test4_UpdateUserPassword("Test #5.", "VyaSik", "11111");
     }
 }

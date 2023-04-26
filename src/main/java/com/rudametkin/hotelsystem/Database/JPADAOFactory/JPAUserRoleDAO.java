@@ -14,16 +14,21 @@ public class JPAUserRoleDAO implements IUserRoleDAO {
     @Override
     public void save(UserRole userRole) throws DAOException {
         try {
+            entityManager.getTransaction().begin();
             entityManager.persist(userRole);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
+            entityManager.getTransaction().rollback();
             throw new DAOException(e.getMessage());
         }
     }
     @Override
     public void removeById(int userRoleId) throws DAOException {
+        entityManager.getTransaction().begin();
         UserRole userRole = entityManager.find(UserRole.class, userRoleId);
         if(userRole != null)
             entityManager.remove(userRole);
+        entityManager.getTransaction().commit();
     }
     @Override
     public List<UserRole> findByUserId(int userId) throws DAOException {

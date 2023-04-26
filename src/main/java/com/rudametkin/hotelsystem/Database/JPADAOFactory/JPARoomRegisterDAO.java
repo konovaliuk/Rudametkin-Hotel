@@ -15,17 +15,22 @@ public class JPARoomRegisterDAO implements IRoomRegisterDAO {
     @Override
     public int save(RoomRegister roomRegister) throws DAOException {
         try {
+            entityManager.getTransaction().begin();
             entityManager.persist(roomRegister);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
+            entityManager.getTransaction().rollback();
             throw new DAOException(e.getMessage());
         }
         return roomRegister.getId();
     }
     @Override
     public void removeById(int id) throws DAOException {
+        entityManager.getTransaction().begin();
         RoomRegister roomRegister = entityManager.find(RoomRegister.class, id);
         if(roomRegister != null)
             entityManager.remove(roomRegister);
+        entityManager.getTransaction().commit();
     }
     @Override
     public RoomRegister findLastByRoomNumber(int number) throws DAOException {

@@ -24,8 +24,11 @@ public class JPARoomDAO implements IRoomDAO {
     @Override
     public void update(Room room) throws DAOException {
         try {
+            entityManager.getTransaction().begin();
             entityManager.merge(room);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
+            entityManager.getTransaction().rollback();
             throw new DAOException(e.getMessage());
         }
     }

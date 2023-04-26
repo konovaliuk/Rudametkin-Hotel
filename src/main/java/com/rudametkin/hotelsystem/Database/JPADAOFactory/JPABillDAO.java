@@ -16,8 +16,11 @@ public class JPABillDAO implements IBillDAO {
     @Override
     public void save(Bill bill) throws DAOException {
         try {
+            entityManager.getTransaction().begin();
             entityManager.persist(bill);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
+            entityManager.getTransaction().rollback();
             throw new DAOException(e.getMessage());
         }
     }
@@ -25,8 +28,11 @@ public class JPABillDAO implements IBillDAO {
     @Override
     public void update(Bill bill) throws DAOException {
         try {
+            entityManager.getTransaction().begin();
             entityManager.merge(bill);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
+            entityManager.getTransaction().rollback();
             throw new DAOException(e.getMessage());
         }
     }

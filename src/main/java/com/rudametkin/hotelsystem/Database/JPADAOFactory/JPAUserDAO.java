@@ -16,8 +16,11 @@ public class JPAUserDAO implements IUserDAO {
     @Override
     public synchronized int save(User user) throws DAOException {
         try {
+            entityManager.getTransaction().begin();
             entityManager.persist(user);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
+            entityManager.getTransaction().rollback();
             throw new DAOException(e.getMessage());
         }
         return user.getId();
@@ -56,16 +59,25 @@ public class JPAUserDAO implements IUserDAO {
     @Override
     public synchronized void update(User user) throws DAOException {
         try {
+            entityManager.getTransaction().begin();
             entityManager.merge(user);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
+            entityManager.getTransaction().rollback();
             throw new DAOException(e.getMessage());
         }
     }
 
     @Override
     public synchronized void removeById(int id) throws DAOException {
-        User user = entityManager.find(User.class, id);
-        if(user != null)
-            entityManager.remove(user);
+        try {
+            entityManager.getTransaction().begin();
+            User user = entityManager.find(User.class, id);
+            if(user != null)
+                entityManager.remove(user);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+        }
     }
 }
