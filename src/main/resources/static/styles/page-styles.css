@@ -1,0 +1,191 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body.page-stop-transition {
+    transition: none !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+header.header {
+    display: flex;
+    height: 5em;
+    width: 100%;
+    background: linear-gradient(34deg, rgba(44,98,115,1) 0%, rgba(5,54,133,1) 55%, rgba(29,9,144,1) 81%, rgba(0,43,65,1) 100%);
+}
+
+header.header > .left-half {
+    display: flex;
+    flex: 1;
+    flex-flow: row;
+}
+
+header.header > .right-half {
+    display: flex;
+    flex: 1;
+    flex-flow: row-reverse;
+    padding-right: 30px;
+}
+
+
+#preview-container {
+    width: 100%;
+    height: 32em;
+    background: url("/pictures/hotel-preview1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: 0 auto;
+    box-shadow: inset 0.5em 0.5em 3em #919191, inset -0.5em 0 3em #919191, inset 0 0.5em 5em #4a4a4a;
+}
+
+#preview-text {
+    position: relative;
+    top: 0.8em;
+    display: block;
+    font-size: 4em;
+    font-family: "Segue UI";
+    color: White;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: -1px -1px 3px #000, 1px -1px 3px #000, -1px 1px 3px #000, 1px 1px 3px #000;
+    letter-spacing: 0.012em;
+}
+
+.header-button {
+    display: block;
+    height: 2.5em;
+    width: 5em;
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+    font-family: "Verdana";
+    text-align: center;
+    transition: 0.05s linear;
+}
+
+.header-button:hover {
+    cursor: pointer;
+    border-bottom: 2px solid white;
+}
+
+#info-title-header {
+    text-align: center;
+    margin: 1em 0 0 0;
+    color: #11033e;
+}
+
+#info-text {
+    padding: 1.3em;
+    width: 50%;
+    float: left;
+    text-align: justify;
+    font-size: 18px;
+}
+
+#reasons-container {
+    width: 50%;
+    float: left;
+}
+
+#reasons-block {
+    width: 80%;
+    background-color: aliceblue;
+    margin: 1.5em auto;
+}
+
+#reasons-text {
+    padding: 1.3em;
+    font-size: 18px;
+}
+
+@media screen and (max-width: 1020px) {
+    #info-text, #reasons-container, #reasons-block {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #reasons-text, #info-text {
+        padding: 0.7em;
+    }
+}
+
+@font-face {
+    font-family: "Calligraphy";
+    src: url("/fonts/AnandaBlackPersonalUseRegular-rg9Rx.ttf");
+}
+
+#header-logo-text-button {
+    font-family: "Calligraphy";
+    font-size: 35px;
+    display: block;
+    text-shadow: -1px -1px 3px #000, 1px -1px 3px #000, -1px 1px 3px #000, 1px 1px 3px #000;
+    color: white;
+    background: none;
+    border: none;
+}
+
+#logo-text-container {
+    left: 20px;
+}
+
+#header-logo-text-button:hover {
+    cursor: pointer;
+}
+
+#login-button-container, #cabinet-button-container {
+
+}
+
+#logout-button-container {
+
+}
+
+.header-button-container {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    margin: 0 20px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+footer {
+    height: 100px;
+    width: 100%;
+    background-color: #606060;
+    padding: 40px;
+    font-size: 26px;
+    color: white;
+    margin-top: auto;
+}
+
+.slow-showing-div {
+    display: block;
+    overflow: hidden;
+}
+
+.slow-showing-div.hidden-div {
+    max-height: 0;
+    transition: max-height 0.2s cubic-bezier(0.02, 0.71, 0.45, 0.73)
+}
+
+.slow-showing-div.shown-div {
+    max-height: 500px;
+    transition: max-height 0.2s cubic-bezier(0.38, 0.07, 0.68, 1.06);
+}

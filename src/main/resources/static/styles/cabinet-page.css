@@ -1,0 +1,149 @@
+#order-info-container {
+  margin-top: 3em;
+  width: 100%;
+  overflow: auto;
+}
+
+#last-orders-container {
+  max-width: 450px;
+  min-width: 400px;
+  height: 350px;
+  background-color: #d6f4fe;
+  margin: 0 auto;
+  border-radius: 15px;
+}
+
+#last-orders-title {
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  background-color: #046f91;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  height: 2em;
+  padding-top: 0.5em;
+  font-weight: bold;
+}
+
+#order-info-container > .half {
+  width: 50%;
+  float: left;
+}
+
+#user-info > pre {
+  font-size: 20px;
+  font-family: "Times New Roman";
+  line-height: 1.5em;
+}
+
+@media screen and (max-width: 900px) {
+  #order-info-container > .half {
+    width: 100%;
+  }
+}
+
+#last-orderds-empty-text {
+  font-size: 20px;
+  color: gray;
+  display: block;
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#role-dropdown {
+  height: fit-content;
+  display: flex;
+  width: 100px;
+  background: none;
+  color: white;
+  flex-flow: column;
+  text-align: center;
+  font-size: 16px;
+  font-family: Verdana;
+}
+
+#role-dropdown-child {
+  background-color: #f2f2f2;
+}
+
+#role-dropdown:hover {
+  background-color: #0f0d5b;
+  color: white;
+  cursor: pointer;
+}
+
+#role-dropdown-child {
+  display: none;
+}
+
+#role-dropdown-child > div:hover {
+  background-color: #e0e0e0;
+  color: black;
+}
+
+#role-dropdown-child > div {
+  border-top: 1px solid black;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+#role-dropdown:hover #role-dropdown-child {
+  display: block;
+}
+
+#current-role {
+  display: block;
+  padding: 10px;
+  text-decoration: underline;
+}
+
+.order-item {
+  width: 100%;
+  padding: 7px 7px 7px 15px;
+  font-size: 16px;
+}
+
+.order-item:hover {
+  background: rgba(0,0,0, 10%);
+  cursor: pointer;
+}
+
+#orders-body {
+  height: 300px;
+  padding-top: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#orders-body::-webkit-scrollbar {
+  display: none;
+}
+
+#client-search-input {
+  height: 40px;
+  width: 80%;
+  display: block;
+  margin: 20px auto;
+  background: rgba(172, 218, 243, 0.45);
+  border-radius: 10px;
+  padding: 4px;
+  font-size: 20px;
+  font-family: Verdana;
+  border: 2px solid black;
+}
+
+.cancel-order-button:hover {
+  cursor: pointer;
+}
+
+.cancel-order-button {
+  border-radius:10px;
+  height: 30px;
+  font-size: 18px;
+  padding: 5px;
+  border: 1px solid black;
+  background-color: rgba(227,105,162,0.27);
+}
