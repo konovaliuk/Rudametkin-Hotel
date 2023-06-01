@@ -6,16 +6,16 @@ import com.rudametkin.hotelsystem.database.jpadao.repository.RoomRegisterReposit
 import com.rudametkin.hotelsystem.entitys.RoomRegister;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
-@Component
+@Repository
 public class JPARoomRegisterDAO implements IRoomRegisterDAO {
     private final RoomRegisterRepository roomRegisterRepository;
 
-    @Autowired
     public JPARoomRegisterDAO(RoomRegisterRepository roomRegisterRepository) {
         this.roomRegisterRepository = roomRegisterRepository;
     }

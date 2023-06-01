@@ -4,11 +4,13 @@ import com.rudametkin.hotelsystem.entitys.Role;
 import com.rudametkin.hotelsystem.entitys.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
     private String name;
     private String surname;

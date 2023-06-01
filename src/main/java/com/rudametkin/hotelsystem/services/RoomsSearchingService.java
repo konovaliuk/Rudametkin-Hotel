@@ -29,12 +29,12 @@ public class RoomsSearchingService {
         return pagePart;
     }
 
-    public List<RoomClassDto> findRoomsByParams(RoomSearchDto rp, int page) {
+    public List<RoomClassDto> findRoomsByParams(RoomSearchDto rp) {
         List<RoomClassDto> foundRooms = new ArrayList<>();
 
         try {
             IRoomDAO roomDAO = daoFactory.getRoomDAO();
-            foundRooms = roomDAO.findFreeRoomClassesByParams(rp, (page - 1) * pagePart, pagePart);
+            foundRooms = roomDAO.findFreeRoomClassesByParams(rp, (rp.getPage() - 1) * pagePart, pagePart);
         } catch (DAOException ignore) {}
 
         return foundRooms;
@@ -47,6 +47,10 @@ public class RoomsSearchingService {
             amount = roomDAO.countFreeRoomClassesByParams(pr);
         } catch (DAOException ignore) {}
         return amount;
+    }
+
+    public int countPagesOfFreeRooms(RoomSearchDto roomSearchDto) {
+        return (int) Math.ceil(countFreeRoomClassesByParams(roomSearchDto)/(float)RoomsSearchingService.getPagePart());
     }
 }
 

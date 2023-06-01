@@ -34,22 +34,22 @@
             <div class="half">
                 <h2 style="text-align: center; display: block; width: 100%;">Apartments</h2>
                 <pre style="margin-top: 15px; font-size: 16px; line-height: 20px;">
-                Type: <c:out value="${sessionScope.roomClass.type}"/>
-                Rooms amount:  <c:out value="${sessionScope.roomClass.roomsAmount}"/>
-                Single beds amount:  <c:out value="${sessionScope.roomClass.singleBedsAmount}"/>
-                Double beds amount:  <c:out value="${sessionScope.roomClass.doubleBedsAmount}"/>
-                Maximum capacity:  <c:out value="${sessionScope.roomClass.singleBedsAmount + 2*sessionScope.roomClass.doubleBedsAmount}"/>
+                Type: <c:out value="${requestScope.bookingRoom.type}"/>
+                Rooms amount:  <c:out value="${requestScope.bookingRoom.rooms}"/>
+                Single beds amount:  <c:out value="${requestScope.bookingRoom.sbeds}"/>
+                Double beds amount:  <c:out value="${requestScope.bookingRoom.dbeds}"/>
+                Maximum capacity:  <c:out value="${requestScope.bookingRoom.sbeds + 2*requestScope.bookingRoom.dbeds}"/>
             </pre>
             </div>
             <div class="half">
                 <h2 style="text-align: center; display: block; width: 100%;">Details</h2>
                 <pre style="margin-top: 15px; font-size: 16px; line-height: 20px;">
-                TV:  <c:out value="${sessionScope.roomClass.tv}"/>
-                Mini bar:  <c:out value="${sessionScope.roomClass.miniBar}"/>
-                Dryer:  <c:out value="${sessionScope.roomClass.dryer}"/>
+                TV:  <c:out value="${requestScope.bookingRoom.tv}"/>
+                Mini bar:  <c:out value="${requestScope.bookingRoom.miniBar}"/>
+                Dryer:  <c:out value="${requestScope.bookingRoom.dryer}"/>
 
-                Arrival date:  <c:out value="${sessionScope.arrivalDate}"/>
-                Departure date:  <c:out value="${sessionScope.departureDate}"/>
+                Arrival date:  <c:out value="${requestScope.bookingRoom.arrivalDateFormatted}"/>
+                Departure date:  <c:out value="${requestScope.bookingRoom.departureDateFormatted}"/>
             </pre>
             </div>
         </div>

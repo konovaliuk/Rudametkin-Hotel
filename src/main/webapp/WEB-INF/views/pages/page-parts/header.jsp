@@ -7,7 +7,7 @@
   </div>
   <div class="right-half">
     <c:choose>
-      <c:when test="${empty sessionScope.user}">
+      <c:when test="${empty sessionScope.user or empty sessionScope.user.login}">
         <c:if test="${pageContext.request.requestURI != '/WEB-INF/views/pages/login.jsp'}">
           <a href="${pageContext.request.contextPath}/login" id="login-button-container" class="header-button-container">
             <button type="submit" class="header-button">Log in</button>

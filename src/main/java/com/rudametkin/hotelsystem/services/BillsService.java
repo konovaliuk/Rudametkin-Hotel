@@ -55,6 +55,8 @@ public class BillsService {
         ArrayList<OrderDto> list = transactionManager.execute(connection -> {
             IUserDAO userDAO = daoFactory.getUserDAO(connection);
             User client = userDAO.findByLogin(login);
+            if(client == null)
+                return null;
 
             IRoomRegisterDAO roomRegisterDAO = daoFactory.getRoomRegisterDAO(connection);
             List<RoomRegister> roomRegisters = roomRegisterDAO.findActiveByClientId(client.getId());

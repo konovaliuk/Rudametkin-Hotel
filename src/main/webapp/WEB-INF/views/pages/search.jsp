@@ -79,11 +79,11 @@
             <input type="hidden" name="dbeds" value="${item.doubleBedsAmount}">
             <input type="hidden" name="tv" value="${item.tv}">
             <input type="hidden" name="dryer" value="${item.dryer}">
-            <input type="hidden" name="minibar" value="${item.miniBar}">
+            <input type="hidden" name="miniBar" value="${item.miniBar}">
             <input type="hidden" name="price" value="${item.price}">
 
-            <input type="hidden" name="arrival-date" value="${param['arrival-date']}">
-            <input type="hidden" name="departure-date" value="${param['departure-date']}">
+            <input type="hidden" name="arrivalDate" value="${param['arrivalDate']}">
+            <input type="hidden" name="departureDate" value="${param['departureDate']}">
         </form>
     </c:forEach>
 </div>

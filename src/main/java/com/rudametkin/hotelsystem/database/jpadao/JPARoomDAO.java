@@ -13,16 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-@Component
+@Repository
 public class JPARoomDAO implements IRoomDAO {
 
     private final RoomRepository roomRepository;
 
-    @Autowired
     public JPARoomDAO(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
     }

@@ -8,24 +8,24 @@
         <button type="button" class="field-counter-button search-form-item" onclick="decreaseCounterValue(this.nextElementSibling);" disabled>-</button>
         <span id="persons" class="counter search-form-item">1</span>
         <button type="button" class="field-counter-button right-indent search-form-item" onclick="increaseCounterValue(this.previousElementSibling);">+</button>
-        <input id="input-persons" type="hidden" name="persons" value="1" />
+        <input id="input-persons" type="hidden" name="capacity" value="1" />
       </span>
     <span>
           <img src="/pictures/bed-logo.png" alt="BedPic" class="form-icon search-form-item">
           <button type="button" class="field-counter-button search-form-item" onclick="decreaseCounterValue(this.nextElementSibling);" disabled>-</button>
           <span id="beds" class="counter search-form-item">1</span>
           <button type="button" class="field-counter-button right-indent search-form-item" onclick="increaseCounterValue(this.previousElementSibling);">+</button>
-          <input id="input-beds" type="number" name="beds" value="1" hidden />
+          <input id="input-beds" type="number" name="bedsAmount" value="1" hidden />
       </span>
     <span>
         <img src="/pictures/calendar-logo.png" alt="BedPic" class="form-icon search-form-item">
-        <input name="arrival-date" class="form-data-input search-form-item" id="input-arrival-date" type="date" onchange="updateMinDepartureDate();">
+        <input name="arrivalDate" class="form-data-input search-form-item" id="input-arrival-date" type="date" onchange="updateMinDepartureDate();">
         <span class="search-form-item" style="margin: 0 3px; font-size: 20px;">-</span>
-        <input name="departure-date" class="form-data-input search-form-item right-indent" id="input-departure-date" type="date" onchange="updateMinDepartureDate();">
+        <input name="departureDate" class="form-data-input search-form-item right-indent" id="input-departure-date" type="date" onchange="updateMinDepartureDate();">
       </span>
     <span>
         <img src="/pictures/coins-logo.png" alt="CoinsPic" class="form-icon search-form-item">
-        <select name="room-type" id="input-room-type" class="search-form-item right-indent" onchange="updateFormInfoElement();">
+        <select name="type" id="input-room-type" class="search-form-item right-indent" onchange="updateFormInfoElement();">
           <option value="Any" selected>Any</option>
           <option value="Economy">Economy</option>
           <option value="Standard">Standard</option>

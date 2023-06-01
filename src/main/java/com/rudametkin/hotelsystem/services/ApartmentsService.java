@@ -31,9 +31,11 @@ public class ApartmentsService {
 
     public boolean tryBookApartments(RoomClassDto roomClass, Timestamp arrivalTime, Timestamp departureTime, UserDto client) {
         Boolean success = transactionManager.execute(transaction -> {
-
             IRoomDAO roomDAO = daoFactory.getRoomDAO(transaction);
+
             Room freeRoom = roomDAO.findFreeRoomByRoomClass(roomClass, arrivalTime, departureTime);
+            if(freeRoom == null)
+                return false;
 
             IUserDAO userDAO = daoFactory.getUserDAO(transaction);
             User clientUser = userDAO.findByEmail(client.getEmail());

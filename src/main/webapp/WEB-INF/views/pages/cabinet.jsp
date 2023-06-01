@@ -17,6 +17,10 @@
 
 <body>
 
+<c:if test = "${empty sessionScope.user or empty sessionScope.user.login}">
+    <c:redirect url="./login"/>
+</c:if>
+
 <jsp:include page="./page-parts/header.jsp" />
 
 
@@ -65,9 +69,9 @@
             <button type="submit" style="display: none;"></button>
         </form>
 
-        <c:if test="${not empty sessionScope.clientOrders}">
+        <c:if test="${not empty requestScope.clientOrders}">
             <div style="padding: 20px;">
-                <c:forEach items="${sessionScope.clientOrders}" var="item">
+                <c:forEach items="${requestScope.clientOrders}" var="item">
                     <form action="${pageContext.request.contextPath}/cancelOrder" method="post">
                         <div class="order-item" style="font-size: 24px;">${item.toString()}
                             <button class="cancel-order-button" type="submit">Cancel</button>

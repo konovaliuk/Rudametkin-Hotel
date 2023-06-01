@@ -7,8 +7,9 @@ import com.rudametkin.hotelsystem.entitys.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class JPADAOFactory extends DAOFactory {
     private final JPAUserDAO jpaUserDAO;
     private final JPARoomDAO jpaRoomDAO;

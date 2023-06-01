@@ -7,15 +7,15 @@ import com.rudametkin.hotelsystem.database.jpadao.repository.RoleRepository;
 import com.rudametkin.hotelsystem.entitys.Bill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
+@Repository
 public class JPABillDAO implements IBillDAO {
 
     private final BillRepository billRepository;
 
-    @Autowired
     public JPABillDAO(BillRepository billRepository) {
         this.billRepository = billRepository;
     }

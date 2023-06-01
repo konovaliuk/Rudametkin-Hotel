@@ -60,6 +60,8 @@ public class UserService {
 
     public boolean tryRegisterUser(User newUser) {
         Boolean success = transactionManager.execute(connection -> {
+            if(checkRegisterData(newUser).isRegisterAvailable() == false)
+                return false;
             IUserDAO userDAO = daoFactory.getUserDAO(connection);
             int id = userDAO.save(newUser);
 

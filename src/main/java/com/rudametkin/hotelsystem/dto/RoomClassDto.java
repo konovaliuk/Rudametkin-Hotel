@@ -30,6 +30,17 @@ public class RoomClassDto {
         this.price = price;
     }
 
+    public RoomClassDto(BookingRoomDto bookingRoomDto) {
+        this.type = Room.RoomType.valueOf(bookingRoomDto.getType());
+        this.roomsAmount = bookingRoomDto.getRooms();
+        this.singleBedsAmount = bookingRoomDto.getSbeds();
+        this.doubleBedsAmount = bookingRoomDto.getDbeds();
+        this.miniBar = bookingRoomDto.getMiniBar();
+        this.tv = bookingRoomDto.getTv();
+        this.dryer = bookingRoomDto.getDryer();
+        this.price = bookingRoomDto.getPrice();
+    }
+
     public String toString() {
         return "RoomClass : { " + type + ", Rooms: " + roomsAmount + ", Capacity: " + (singleBedsAmount + 2*doubleBedsAmount) + ", Double beds: " + doubleBedsAmount + ", Single beds: " + singleBedsAmount + ", Minibar: " + miniBar + ", Tv: " + tv + ", Dryer: " + dryer + ", Price: " + price + " } ";
     }

@@ -7,15 +7,15 @@ import com.rudametkin.hotelsystem.database.jpadao.repository.UserRepository;
 import com.rudametkin.hotelsystem.entitys.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Component
+@Repository
 public class JPARoleDAO implements IRoleDAO {
 
     private final RoleRepository roleRepository;
 
-    @Autowired
     public JPARoleDAO(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }

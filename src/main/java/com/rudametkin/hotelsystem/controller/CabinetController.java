@@ -7,16 +7,17 @@ import com.rudametkin.hotelsystem.services.ApartmentsService;
 import com.rudametkin.hotelsystem.services.BillsService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@SessionAttributes({"user","clientLogin"})
 public class CabinetController {
 
     private final BillsService billsService;
@@ -27,48 +28,29 @@ public class CabinetController {
     }
 
     @RequestMapping("/cabinet")
-    public String cabinet(Model model, HttpSession session) {
-        if(session.getAttribute("user") == null)
-            return "redirect:/login";
-
-        UserDto user = (UserDto) session.getAttribute("user");
-        List<OrderDto> orders = billsService.getAllUserBills(user);
-        model.addAttribute("orders", orders);
-
+    public String cabinet(Model model, @ModelAttribute("user") UserDto userDto) {
+        if(userDto.hasRole("Client")) {
+            List<OrderDto> orders = billsService.getAllUserBills(userDto);
+            model.addAttribute("orders", orders);
+        } else {
+            List<OrderDto> clientBills = billsService.getActiveUserBills((String) model.getAttribute("clientLogin"));
+            model.addAttribute("clientOrders", clientBills);
+        }
         return "cabinet";
     }
 
     @PostMapping("/admin-search")
-    public String clientsSearch(@RequestParam("client-login") String clientLogin, HttpSession session) {
-        if(session.getAttribute("user") == null)
-            return "redirect:/login";
-
-        UserDto user = (UserDto) session.getAttribute("user");
-        if(user.hasRole("Administrator") == false)
-            return "redirect:/home";
-
-        List<OrderDto> clientBills = billsService.getActiveUserBills(clientLogin);
-
-        session.setAttribute("clientOrders", clientBills);
-        session.setAttribute("clientLogin", clientLogin);
-
+    public String clientsSearch(@RequestParam("client-login") String clientLogin, Model model) {
+        model.addAttribute("clientLogin", clientLogin);
         return "redirect:/cabinet";
     }
 
     @PostMapping("/cancelOrder")
-    public String cancelOrder(@RequestParam("room-register-id") Integer roomRegisterId, HttpSession session) {
-        if(session.getAttribute("user") == null)
+    public String cancelOrder(@RequestParam("room-register-id") Integer roomRegisterId,
+                              @ModelAttribute("user") UserDto userDto) {
+        if(userDto.getEmail() == null || !userDto.hasRole("Administrator"))
             return "redirect:/login";
-
-        UserDto user = (UserDto) session.getAttribute("user");
-        if(user.hasRole("Administrator") == false)
-            return "redirect:/home";
-
         billsService.cancelOrder(roomRegisterId);
-        List<OrderDto> clientBills = billsService.getActiveUserBills((String) session.getAttribute("clientLogin"));
-
-        session.setAttribute("clientOrders", clientBills);
-
         return "redirect:/cabinet";
     }
 }

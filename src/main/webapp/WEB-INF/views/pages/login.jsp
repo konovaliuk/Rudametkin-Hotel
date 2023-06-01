@@ -16,7 +16,7 @@
 %>
 
 
-<c:if test="${not empty sessionScope.user}">
+<c:if test="${not empty sessionScope.user and not empty sessionScope.user.login}">
     <c:redirect url="/cabinet" />
 </c:if>
 

@@ -9,11 +9,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 
-@Component
+@Repository
 public class JPAUserDAO implements IUserDAO {
     private final UserRepository userRepository;
 
-    @Autowired
     public JPAUserDAO(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
